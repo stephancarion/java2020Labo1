@@ -1,5 +1,8 @@
 package be.technifutur.java2020.gestionStage.stage;
 
+import be.technifutur.java2020.gestionStage.exception.emptyNameStageException;
+import be.technifutur.java2020.gestionStage.exception.invalidEndDateTimeStageException;
+
 import java.time.LocalDateTime;
 
 public class StageModel {
@@ -14,10 +17,10 @@ public class StageModel {
                 this.dateHeureDebut=dateHeureDebut;
                 this.dateHeureFin=dateHeureFin;
             }else{
-                throw invalidEndDateTimeStageException;
+                throw new invalidEndDateTimeStageException();
             }
         }else{
-            throw emptyNameStageException;
+            throw new emptyNameStageException();
         }
     }
 }
