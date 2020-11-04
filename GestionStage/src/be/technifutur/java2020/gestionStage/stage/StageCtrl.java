@@ -1,5 +1,8 @@
 package be.technifutur.java2020.gestionStage.stage;
 
+import be.technifutur.java2020.gestionStage.exception.emptyNameStageException;
+import be.technifutur.java2020.gestionStage.exception.invalidEndDateTimeStageException;
+
 import java.nio.file.LinkOption;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -39,40 +42,53 @@ public class StageCtrl {
         nom = scanner.nextLine();
 
         vue.afficheConsigneAjoutDateHeureDebut();
-
         input = scanner.nextLine();
         matcher = patternDateHeure.matcher(input);
-        if (matcher.matches()){
-            int dateDebut = Integer.parseUnsignedInt(matcher.group(1));
-            int moisDebut = Integer.parseUnsignedInt(matcher.group(5));
-            int anneeDebut = Integer.parseUnsignedInt(matcher.group(8));
-            int heureDebut = Integer.parseUnsignedInt(matcher.group(9));
-            int minuteDebut = Integer.parseUnsignedInt(matcher.group(12));
 
-            debut = LocalDateTime.of(anneeDebut,moisDebut,dateDebut, heureDebut, minuteDebut);
-        }else{
-            debut=null;
-            new Exception("Format invalide");
+        while (! matcher.matches()){
+            System.out.println("Format Invalide");
+            vue.afficheConsigneAjoutDateHeureDebut();
+            input = scanner.nextLine();
+            matcher = patternDateHeure.matcher(input);
         }
+        int dateDebut = Integer.parseUnsignedInt(matcher.group(1));
+        int moisDebut = Integer.parseUnsignedInt(matcher.group(5));
+        int anneeDebut = Integer.parseUnsignedInt(matcher.group(8));
+        int heureDebut = Integer.parseUnsignedInt(matcher.group(9));
+        int minuteDebut = Integer.parseUnsignedInt(matcher.group(12));
+        debut = LocalDateTime.of(anneeDebut, moisDebut, dateDebut, heureDebut, minuteDebut);
+
 
         vue.afficheConsigneAjoutDateHeureFin();
-
         input = scanner.nextLine();
         matcher = patternDateHeure.matcher(input);
-        if (matcher.matches()){
-            int dateFin = Integer.parseUnsignedInt(matcher.group(1));
-            int moisFin = Integer.parseUnsignedInt(matcher.group(5));
-            int anneeFin = Integer.parseUnsignedInt(matcher.group(8));
-            int heureFin = Integer.parseUnsignedInt(matcher.group(9));
-            int minuteFin = Integer.parseUnsignedInt(matcher.group(12));
-
-            fin = LocalDateTime.of(anneeFin,moisFin,dateFin, heureFin, minuteFin);
-        }else{
-            fin = null;
-            new Exception("Format invalide");
+        while (! matcher.matches()){
+            System.out.println("Format Invalide");
+            vue.afficheConsigneAjoutDateHeureFin();
+            input = scanner.nextLine();
+            matcher = patternDateHeure.matcher(input);
         }
+        int dateFin = Integer.parseUnsignedInt(matcher.group(1));
+        int moisFin = Integer.parseUnsignedInt(matcher.group(5));
+        int anneeFin = Integer.parseUnsignedInt(matcher.group(8));
+        int heureFin = Integer.parseUnsignedInt(matcher.group(9));
+        int minuteFin = Integer.parseUnsignedInt(matcher.group(12));
+        fin = LocalDateTime.of(anneeFin,moisFin,dateFin, heureFin, minuteFin);
 
-        model = new StageModel(nom,debut,fin);
+
+        System.out.println("Nom : " +nom);
+        System.out.println("Debut : " + debut);
+        System.out.println("Fin : " + fin);
+
+        try{
+            model = new StageModel(nom,debut,fin);
+            setModel(model);
+            setVue(vue);
+        }catch (emptyNameStageException e) {
+            System.out.println("Veuillez entrer au moins 1 caractère pour le nom");
+        }catch (invalidEndDateTimeStageException e) {
+            System.out.println("Veuillez entrer une date et heure de fin postérieure au début");
+        }
 
     }
 }

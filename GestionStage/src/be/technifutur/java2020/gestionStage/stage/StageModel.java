@@ -8,23 +8,23 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class StageModel {
-    private String name;
-    private LocalDateTime dateHeureDebut;
-    private LocalDateTime dateHeureFin;
+    private String name=null;
+    private LocalDateTime dateHeureDebut=null;
+    private LocalDateTime dateHeureFin=null;
 
-    public StageModel(String name, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin){
+    public StageModel(){}
+
+    public StageModel(String name, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws invalidEndDateTimeStageException, emptyNameStageException {
         if(name.length() > 0){
             this.name=name;
             if (dateHeureFin.compareTo(dateHeureDebut) > 0){
                 this.dateHeureDebut=dateHeureDebut;
                 this.dateHeureFin=dateHeureFin;
             }else{
-                //TODO
-                //throw new invalidEndDateTimeStageException();
+                throw new invalidEndDateTimeStageException();
             }
         }else{
-            // TODO
-            //throw new emptyNameStageException();
+            throw new emptyNameStageException();
         }
     }
 
