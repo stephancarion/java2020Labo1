@@ -1,5 +1,6 @@
 package be.technifutur.java2020.gestionStage.stage;
 
+import be.technifutur.java2020.gestionStage.common.ConsignesVue;
 import be.technifutur.java2020.gestionStage.exception.emptyNameStageException;
 import be.technifutur.java2020.gestionStage.exception.invalidEndDateTimeStageException;
 
@@ -21,7 +22,8 @@ public class StageCtrl {
         this.vue = vue;
     }
 
-    public void ajoutStage(){
+    public StageModel ajoutStage(){
+        ConsignesVue consigneVue = new ConsignesVue();
         Scanner scanner=new Scanner(System.in);
         String input;
         String nom;
@@ -38,16 +40,16 @@ public class StageCtrl {
         // matcher
         Matcher matcher;
 
-        vue.afficheConsigneAjoutNom();
+        consigneVue.ajoutNomStage();
         nom = scanner.nextLine();
 
-        vue.afficheConsigneAjoutDateHeureDebut();
+        consigneVue.ajoutDateHeureDebutStage();
         input = scanner.nextLine();
         matcher = patternDateHeure.matcher(input);
 
         while (! matcher.matches()){
             System.out.println("Format Invalide");
-            vue.afficheConsigneAjoutDateHeureDebut();
+            consigneVue.ajoutDateHeureDebutStage();
             input = scanner.nextLine();
             matcher = patternDateHeure.matcher(input);
         }
@@ -59,12 +61,12 @@ public class StageCtrl {
         debut = LocalDateTime.of(anneeDebut, moisDebut, dateDebut, heureDebut, minuteDebut);
 
 
-        vue.afficheConsigneAjoutDateHeureFin();
+        consigneVue.ajoutDateHeureFinStage();
         input = scanner.nextLine();
         matcher = patternDateHeure.matcher(input);
         while (! matcher.matches()){
             System.out.println("Format Invalide");
-            vue.afficheConsigneAjoutDateHeureFin();
+            consigneVue.ajoutDateHeureFinStage();
             input = scanner.nextLine();
             matcher = patternDateHeure.matcher(input);
         }
@@ -75,11 +77,6 @@ public class StageCtrl {
         int minuteFin = Integer.parseUnsignedInt(matcher.group(12));
         fin = LocalDateTime.of(anneeFin,moisFin,dateFin, heureFin, minuteFin);
 
-
-        System.out.println("Nom : " +nom);
-        System.out.println("Debut : " + debut);
-        System.out.println("Fin : " + fin);
-
         try{
             model = new StageModel(nom,debut,fin);
             setModel(model);
@@ -89,6 +86,6 @@ public class StageCtrl {
         }catch (invalidEndDateTimeStageException e) {
             System.out.println("Veuillez entrer une date et heure de fin postérieure au début");
         }
-
+    return model;
     }
 }

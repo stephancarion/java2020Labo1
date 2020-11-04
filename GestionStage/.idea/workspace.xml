@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe80da28-6229-4e68-a114-a4c53f0bef95" name="Default Changelist" comment="Hello World!">
+      <change afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/common/ConsignesVue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/stage/StageCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/stage/StageCtrl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/stage/StageVue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/stage/StageVue.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageVue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageVue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,22 +80,22 @@
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604485490028" />
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604496436518" />
-    <state width="1323" height="250" key="GridCell.Tab.0.bottom" timestamp="1604500206733">
+    <state width="1323" height="250" key="GridCell.Tab.0.bottom" timestamp="1604501535539">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="250" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1604500206733" />
-    <state width="1323" height="250" key="GridCell.Tab.0.center" timestamp="1604500206732">
+    <state width="1323" height="250" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1604501535539" />
+    <state width="1323" height="250" key="GridCell.Tab.0.center" timestamp="1604501535538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="250" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1604500206732" />
-    <state width="1323" height="250" key="GridCell.Tab.0.left" timestamp="1604500206732">
+    <state width="1323" height="250" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1604501535538" />
+    <state width="1323" height="250" key="GridCell.Tab.0.left" timestamp="1604501535538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="250" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1604500206732" />
-    <state width="1323" height="250" key="GridCell.Tab.0.right" timestamp="1604500206732">
+    <state width="1323" height="250" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1604501535538" />
+    <state width="1323" height="250" key="GridCell.Tab.0.right" timestamp="1604501535538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="250" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1604500206732" />
+    <state width="1323" height="250" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1604501535538" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1604492791539">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
