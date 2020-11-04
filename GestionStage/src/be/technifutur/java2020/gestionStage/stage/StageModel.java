@@ -47,4 +47,6 @@ public class StageModel {
     public LocalTime getHeureFin() {
         return dateHeureFin.toLocalTime();
     }
+
+
 }

@@ -3,7 +3,7 @@ package be.technifutur.java2020.gestionStage.stage;
 import be.technifutur.java2020.gestionStage.exception.StageException;
 
 public class StageVue {
-    StageModel model;
+    private StageModel model;
 
     public void setModel(StageModel model) {
         this.model = model;
@@ -18,5 +18,14 @@ public class StageVue {
                 "**************************************";
 
         System.out.println(texteAffichage);
+    }
+
+    public void afficheConsigneAjoutNom() {
+    }
+
+    public void afficheConsigneAjoutDateHeureDebut() {
+    }
+
+    public void afficheConsigneAjoutDateHeureFin() {
     }
 }
