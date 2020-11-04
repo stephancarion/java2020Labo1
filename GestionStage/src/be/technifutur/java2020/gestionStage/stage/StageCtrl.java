@@ -1,10 +1,8 @@
 package be.technifutur.java2020.gestionStage.stage;
 
 import be.technifutur.java2020.gestionStage.common.ConsignesVue;
-import be.technifutur.java2020.gestionStage.exception.emptyNameStageException;
 import be.technifutur.java2020.gestionStage.exception.invalidEndDateTimeStageException;
 
-import java.nio.file.LinkOption;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -42,6 +40,11 @@ public class StageCtrl {
 
         consigneVue.ajoutNomStage();
         nom = scanner.nextLine();
+        while (nom.length()==0){
+            System.out.println("Nom invalide");
+            consigneVue.ajoutNomStage();
+            nom = scanner.nextLine();
+        }
 
         consigneVue.ajoutDateHeureDebutStage();
         input = scanner.nextLine();
@@ -81,8 +84,6 @@ public class StageCtrl {
             model = new StageModel(nom,debut,fin);
             setModel(model);
             setVue(vue);
-        }catch (emptyNameStageException e) {
-            System.out.println("Veuillez entrer au moins 1 caractère pour le nom");
         }catch (invalidEndDateTimeStageException e) {
             System.out.println("Veuillez entrer une date et heure de fin postérieure au début");
         }
