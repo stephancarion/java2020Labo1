@@ -4,6 +4,7 @@
     <list default="true" id="fe80da28-6229-4e68-a114-a4c53f0bef95" name="Default Changelist" comment="Hello World!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageVue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/stage/StageVue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +24,11 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../javabase/projetSudoku" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="be.technifutur.java2020.gestionStage.exception" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -52,14 +58,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="Hello World!" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser" timestamp="1604486536278">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604486536278" />
+    <state x="413" y="140" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1604485617592">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="140" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604485617592" />
     <state x="226" y="0" key="CommitChangelistDialog2" timestamp="1604480319583">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="226" y="0" key="CommitChangelistDialog2/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604480319583" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604479775576">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1604485490028">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604479775576" />
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604485490028" />
   </component>
   <component name="masterDetails">
     <states>

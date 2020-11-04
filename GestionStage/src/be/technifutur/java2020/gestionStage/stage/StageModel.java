@@ -3,7 +3,9 @@ package be.technifutur.java2020.gestionStage.stage;
 import be.technifutur.java2020.gestionStage.exception.emptyNameStageException;
 import be.technifutur.java2020.gestionStage.exception.invalidEndDateTimeStageException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class StageModel {
     private String name;
@@ -17,10 +19,32 @@ public class StageModel {
                 this.dateHeureDebut=dateHeureDebut;
                 this.dateHeureFin=dateHeureFin;
             }else{
-                throw new invalidEndDateTimeStageException();
+                //TODO
+                //throw new invalidEndDateTimeStageException();
             }
         }else{
-            throw new emptyNameStageException();
+            // TODO
+            //throw new emptyNameStageException();
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getDateDebut() {
+        return dateHeureDebut.toLocalDate();
+    }
+
+    public LocalTime getHeureDebut() {
+        return dateHeureDebut.toLocalTime();
+    }
+
+    public LocalDate getDateFin() {
+        return dateHeureFin.toLocalDate();
+    }
+
+    public LocalTime getHeureFin() {
+        return dateHeureFin.toLocalTime();
     }
 }
