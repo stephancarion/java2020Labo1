@@ -26,6 +26,7 @@ public class OrganisateurCtrl{
             System.out.println("****** Menu Organisateur ********");
             System.out.println("* Que souhaitez-vous ?          *");
             System.out.println("* 1 - Ajouter un stage          *");
+            System.out.println("* 2 - Voir tous les stages      *");
             System.out.println("* 0 - Quitter rôle organisateur *");
             System.out.print("* Votre Choix ? ");
             reponseMenu=scanner.nextLine();
@@ -35,12 +36,15 @@ public class OrganisateurCtrl{
                     ajoutStage();
                     roleVue.afficheInfoStageAjoute();
                     break;
+                case "2" :
+                    roleVue.afficheStageSet();
+                    break;
             }
         }
     }
 
 
-    public void ajoutStage(){
+    private void ajoutStage(){
         StageModel stageModel;
         ConsignesVue consignesVue = new ConsignesVue();
         Scanner scanner=new Scanner(System.in);
@@ -112,7 +116,6 @@ public class OrganisateurCtrl{
         }catch (InvalidEndDateTimeStageException e) {
             System.out.println("Veuillez entrer une date et heure de fin postérieure au début");
         }
-
-
     }
+
 }

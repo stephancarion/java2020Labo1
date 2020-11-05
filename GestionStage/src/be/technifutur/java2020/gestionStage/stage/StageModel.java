@@ -1,23 +1,24 @@
 package be.technifutur.java2020.gestionStage.stage;
 
 import be.technifutur.java2020.gestionStage.exception.InvalidEndDateTimeStageException;
+import be.technifutur.java2020.gestionStage.exception.notNewActiviteInStageException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
 
 public class StageModel {
     private String name=null;
-    private LocalDateTime dateHeureDebut=null;
-    private LocalDateTime dateHeureFin=null;
-
-    public StageModel(){}
+    private LocalDateTime debut =null;
+    private LocalDateTime fin =null;
+    private HashSet<ActiviteModel> activiteSet = new HashSet<>();
 
     public StageModel(String name, LocalDateTime dateHeureDebut, LocalDateTime dateHeureFin) throws InvalidEndDateTimeStageException {
         this.name=name;
         if (dateHeureFin.compareTo(dateHeureDebut) > 0){
-            this.dateHeureDebut=dateHeureDebut;
-            this.dateHeureFin=dateHeureFin;
+            this.debut =dateHeureDebut;
+            this.fin =dateHeureFin;
         }else{
             throw new InvalidEndDateTimeStageException();
         }
@@ -28,20 +29,27 @@ public class StageModel {
     }
 
     public LocalDate getDateDebut() {
-        return dateHeureDebut.toLocalDate();
+        return debut.toLocalDate();
     }
 
     public LocalTime getHeureDebut() {
-        return dateHeureDebut.toLocalTime();
+        return debut.toLocalTime();
     }
 
     public LocalDate getDateFin() {
-        return dateHeureFin.toLocalDate();
+        return fin.toLocalDate();
     }
 
     public LocalTime getHeureFin() {
-        return dateHeureFin.toLocalTime();
+        return fin.toLocalTime();
     }
 
+    public void addActivite (ActiviteModel activite) throws notNewActiviteInStageException {
+        if (activiteSet.contains(activite)){
+            throw new notNewActiviteInStageException();
+        }else{
+            activiteSet.add(activite);
+        }
+    }
 
 }
