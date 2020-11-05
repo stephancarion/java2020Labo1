@@ -44,6 +44,18 @@ public class StageModel {
         return fin.toLocalTime();
     }
 
+    public LocalDateTime getDebut() {
+        return debut;
+    }
+
+    public LocalDateTime getFin() {
+        return fin;
+    }
+
+    public HashSet<ActiviteModel> getActiviteSet() {
+        return activiteSet;
+    }
+
     public void addActivite (ActiviteModel activite) throws notNewActiviteInStageException {
         if (activiteSet.contains(activite)){
             throw new notNewActiviteInStageException();

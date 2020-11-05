@@ -1,5 +1,6 @@
 package be.technifutur.java2020.gestionStage.role;
 
+import be.technifutur.java2020.gestionStage.stage.ActiviteModel;
 import be.technifutur.java2020.gestionStage.stage.StageModel;
 
 import java.time.format.DateTimeFormatter;
@@ -65,6 +66,49 @@ public class RoleVue {
         affichage += "***********************************************************\n";
 
         System.out.println(affichage);
+    }
 
+    public void afficheInfoActiviteStage(Integer cleStage){
+        String texteAffichage;
+        try{
+            StageModel stage = roleModel.getMapStage().get(cleStage);
+            HashSet<ActiviteModel> activiteSet = stage.getActiviteSet();
+
+            String nomStage = stage.getName();
+            String dateDebutStage = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String heureDebutStage = stage.getHeureDebut().toString();
+            String dateFinStage=stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String heureFinStage = stage.getHeureFin().toString();
+
+            texteAffichage = "\n"+
+                    "**************** Stage  ***************\n"+
+                    "* Nom du stage : " + nomStage + "\n" +
+                    "* Debut : " + dateDebutStage + " à "+ heureDebutStage+"\n" +
+                    "* Fin : " + dateFinStage + " à "+ heureFinStage+"\n" +
+                    "*********** Liste des activités du stage ***********\n";
+            // En-tête de colonne.
+            texteAffichage += " Nom, date et heure de début, durée\n";
+
+            for (ActiviteModel activite : activiteSet) {
+
+                String nomActivite = activite.getNom();
+                String dateDebutActivite = activite.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String heureDebutActivite = activite.getDebut().toLocalTime().toString();
+                Integer dureeActivite = activite.getDuree();
+
+                texteAffichage += " "+ nomActivite + ", " +
+                        dateDebutActivite+ " à " + heureDebutActivite + ", "+
+                        dureeActivite + " minute(s)\n";
+            }
+
+            // pied de tableau
+            texteAffichage += "***************************************************\n";
+        } catch (NullPointerException e){
+            texteAffichage = "\n"+
+                    "***********************\n"+
+                    "* Pas de stage ajouté *\n" +
+                    "***********************\n";
+        }
+        System.out.println(texteAffichage);
     }
 }
