@@ -1,4 +1,6 @@
 package be.technifutur.java2020.gestionStage.role.organisateur;
 
-public class OrganisateurModel {
+import be.technifutur.java2020.gestionStage.role.RoleModel;
+
+public class OrganisateurModel extends RoleModel {
 }

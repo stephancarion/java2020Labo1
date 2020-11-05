@@ -21,7 +21,6 @@ public class StageModel {
         }else{
             throw new InvalidEndDateTimeStageException();
         }
-
     }
 
     public String getName() {
