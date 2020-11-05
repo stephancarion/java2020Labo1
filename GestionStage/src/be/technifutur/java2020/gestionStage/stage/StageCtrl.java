@@ -1,7 +1,7 @@
 package be.technifutur.java2020.gestionStage.stage;
 
 import be.technifutur.java2020.gestionStage.common.ConsignesVue;
-import be.technifutur.java2020.gestionStage.exception.invalidEndDateTimeStageException;
+import be.technifutur.java2020.gestionStage.exception.InvalidEndDateTimeStageException;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -84,7 +84,7 @@ public class StageCtrl {
             model = new StageModel(nom,debut,fin);
             setModel(model);
             setVue(vue);
-        }catch (invalidEndDateTimeStageException e) {
+        }catch (InvalidEndDateTimeStageException e) {
             System.out.println("Veuillez entrer une date et heure de fin postérieure au début");
         }
     return model;
