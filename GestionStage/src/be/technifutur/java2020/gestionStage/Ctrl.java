@@ -51,7 +51,7 @@ public class Ctrl {
                 case "3" :
                     vue.afficheStageSet();
                     try {
-                        Integer cleStage = accesStage();
+                        Integer cleStage = accesStagePourAjoutActivite();
                         ajoutActivite(cleStage);
                         vue.afficheInfoActiviteStage(cleStage);
                     } catch (NumeroDeStageNonValideException e) {
@@ -61,7 +61,7 @@ public class Ctrl {
                 case "4" :
                     vue.afficheStageSet();
                     try {
-                        Integer cleStage = accesStage();
+                        Integer cleStage = accesStagePourVoirActivite();
                         vue.afficheHoraireStage(cleStage);
                     } catch (NumeroDeStageNonValideException e) {
                         System.out.println("Numéro de stage non valide");
@@ -155,7 +155,7 @@ public class Ctrl {
         return cleStageAjoute;
     }
     
-    private Integer accesStage() throws NumeroDeStageNonValideException {
+    private Integer accesStagePourAjoutActivite() throws NumeroDeStageNonValideException {
         ConsignesVue consignesVue = new ConsignesVue();
         Integer cleStage = null;
         Scanner scanner = new Scanner(System.in);
@@ -176,6 +176,30 @@ public class Ctrl {
             System.out.println("Vous n'avez pas rentré un nombre");
         }
         
+        return  cleStage;
+    }
+
+    private Integer accesStagePourVoirActivite() throws NumeroDeStageNonValideException {
+        ConsignesVue consignesVue = new ConsignesVue();
+        Integer cleStage = null;
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        Set<Integer> cleStageSet = model.getCleStageSet();
+
+        consignesVue.accesNumeroStagePourVoirActivite();
+        input=scanner.nextLine();
+
+        input=input.trim();
+
+        try {
+            cleStage = Integer.parseUnsignedInt(input);
+            if (! cleStageSet.contains(cleStage)){
+                throw new NumeroDeStageNonValideException();
+            }
+        }catch (NumberFormatException e){
+            System.out.println("Vous n'avez pas rentré un nombre");
+        }
+
         return  cleStage;
     }
     

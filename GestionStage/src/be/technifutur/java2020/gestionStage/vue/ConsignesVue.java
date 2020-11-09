@@ -22,6 +22,11 @@ public class ConsignesVue {
         System.out.print(consigne);
     }
 
+    public void accesNumeroStagePourVoirActivite () {
+        String consigne = " Entrez le N° de stage pour lequel vous souhaitez voir les activités : ";
+        System.out.print(consigne);
+    }
+
     public void ajoutNomActivite() {
         String consigne = "Entrez le nom de l'activité : ";
         System.out.print(consigne);
