@@ -41,4 +41,24 @@ public class ConsignesVue {
         String consigne = "Entrez la durée de l'activité en minutes : ";
         System.out.print(consigne);
     }
+
+    public void ajoutNomParticipant() {
+        String consigne = "Entrez le nom du participant (obligatoire) : ";
+        System.out.print(consigne);
+    }
+
+    public void ajoutPrenomParticipant() {
+        String consigne = "Entrez le prénom du participant (obligatoire) : ";
+        System.out.print(consigne);
+    }
+
+    public void ajoutNomClubParticipant() {
+        String consigne = "Entrez le nom du club du participant (optionnel: appuyez sur enter directement) : ";
+        System.out.print(consigne);
+    }
+
+    public void ajoutMailParticipant() {
+        String consigne = "Entrez le mail du participant (optionnel: appuyez sur enter directement) : ";
+        System.out.print(consigne);
+    }
 }
