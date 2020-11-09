@@ -169,4 +169,28 @@ public class Vue {
         }
         System.out.println(affiche);
     }
+
+
+    public void afficheParticipantAjoute(Participant participant) {
+        String affiche;
+        try{
+            String nom = participant.getNom();
+            String prenom = participant.getPrenom();
+            String nomClub = participant.getNomClub();
+            String mail = participant.getMail();
+
+            affiche = "\n"+
+                    "********************** Participant ajouté **********************\n"+
+                    "* Nom et prénom : " + nom + " " + prenom + "\n" +
+                    "* Nom du club (optionnel) : " + nomClub +"\n" +
+                    "* Mail (optionnel) : " + mail +"\n" +
+                    "*****************************************************************\n";
+        } catch (NullPointerException e){
+            affiche = "\n"+
+                    "*****************************\n"+
+                    "* Pas de participant ajouté *\n" +
+                    "*****************************\n";
+        }
+        System.out.println(affiche);
+    }
 }

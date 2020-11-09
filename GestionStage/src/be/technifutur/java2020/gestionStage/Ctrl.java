@@ -4,7 +4,6 @@ import be.technifutur.java2020.gestionStage.exception.*;
 import be.technifutur.java2020.gestionStage.vue.ConsignesVue;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
@@ -12,17 +11,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Ctrl {
-    private Scanner scanner;
     private Model model;
     private Vue vue;
     private ConsignesVue consignesVue;
+    private Scanner scanner;
 
     private String input;
     private Optional<String> optionalInput;
-
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
+    private String consigne;
+    private Pattern pattern;
+    private Matcher matcher;
 
     public void setModel(Model model) {
         this.model = model;
@@ -36,6 +34,10 @@ public class Ctrl {
         this.consignesVue = consignesVue;
     }
 
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
     public void start(){
         input ="";
         while(! "0".equalsIgnoreCase(input)){
@@ -45,6 +47,7 @@ public class Ctrl {
             System.out.println("* 2 - Voir tous les stages                 *");
             System.out.println("* 3 - Ajouter une activité à un stage      *");
             System.out.println("* 4 - Voir toutes les activités d'un stage *");
+            System.out.println("* 5 - Ajouter un participant               *");
             System.out.println("* 0 - Quitter rôle organisateur            *");
             System.out.print("* Votre Choix ? ");
             input=scanner.nextLine();
@@ -75,6 +78,9 @@ public class Ctrl {
                     } catch (NumeroDeStageNonValideException e) {
                         System.out.println("Numéro de stage non valide");
                     }
+                    break;
+                case "5" :
+                    ajoutParticipant();
                     break;
             }
         }
@@ -293,43 +299,92 @@ public class Ctrl {
         Optional<String> nomClub;
         Optional<String> mail;
 
-        boolean sortieAjout = false;
+        input = getNomParticipant();
 
-        input = inputToString("Entrez le nom du participant (obligatoire) ou 0 pour sortir: ", MatcherPattern.lettresUniquementOuZero);
-        sortieAjout = "0".equalsIgnoreCase(input);
-
-        if (! sortieAjout){
+        if (! "0".equalsIgnoreCase(input)){
             nom = input;
-            input = inputToString();
-        }
 
+            input = getPrenomParticipant();
+
+            if (! "0".equalsIgnoreCase(input)){
+                prenom = input;
+
+                consigne = "Entrez le nom du club du participant (optionnel: appuyez sur enter directement) ou 0 pour sortir : ";
+                pattern = PatternPerso.videOuLettresUniquementOuZero;
+                optionalInput = inputToOptionalString(consigne, pattern);
+
+                if ((optionalInput.isPresent() && ! "q".equalsIgnoreCase(optionalInput.get())) || optionalInput.isEmpty()){
+                    if (optionalInput.isPresent()){
+                        input = optionalInput.get();
+                        nomClub = Optional.of(input);
+                    }else{
+                        nomClub = Optional.empty();
+                    }
+                    consigne = "Entrez le mail du participant (optionnel: appuyez sur enter directement) ou 0 pour sortir : ";
+                    pattern = PatternPerso.videOuMailOuZero;
+                    optionalInput = inputToOptionalString(consigne, pattern);
+
+                    if ((optionalInput.isPresent() && ! "q".equalsIgnoreCase(optionalInput.get())) || optionalInput.isEmpty()) {
+                        if (optionalInput.isPresent()) {
+                            input = optionalInput.get();
+                            mail = Optional.of(input);
+                        } else {
+                            mail = Optional.empty();
+                        }
+
+                        Participant participant = null;
+                        try {
+                            participant = new Participant(nom, prenom, nomClub, mail);
+                            model.addParticipant(participant);
+                            vue.afficheParticipantAjoute(participant);
+                        } catch (ChaineDeCaractereVideException e) {
+                            System.out.println("Impossible de créer le participant car une chaîne de caractère est vide");
+                        } catch (ParticipantDejaExistantException e){
+                            System.out.println("Un participant avec les mêmes nom et prénom existe déjà");
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+
+    private String getNomParticipant(){
+        consigne = "Entrez le nom du participant (obligatoire) ou 0 pour sortir : ";
+        pattern = PatternPerso.pasVideEtLettresUniquementOuZero;
+        input = inputToString(consigne, pattern);
+
+        return input;
+    }
+
+    private String getPrenomParticipant(){
+        consigne = "Entrez le prénom du participant (obligatoire) ou 0 pour sortir : ";
+        pattern = PatternPerso.pasVideEtLettresUniquementOuZero;
+        input = inputToString(consigne, pattern);
+
+        return input;
     }
 
     private String inputToString(String consigne, Pattern pattern){
         Optional<String> string = Optional.empty();
-        Matcher matcher;
 
         do {
-            System.out.print(consigne);
-            input = scanner.nextLine();
-            input = input.trim();
-
-            matcher = pattern.matcher(input);
-
-            if (matcher.matches()) {
-                string = Optional.of(input);
-            }
+            string = inputToOptionalString(consigne, pattern);
         }while (string.isEmpty());
 
         return string.get();
     }
 
-    private Optional<String> inputToOptionalString(String consigne){
+    private Optional<String> inputToOptionalString(String consigne, Pattern pattern){
         Optional<String> string = Optional.empty();
 
-        System.out.print(consigne);
-        input =  scanner.nextLine();
-        input = input.trim();
+        do {
+            System.out.print(consigne);
+            input =  scanner.nextLine();
+            input = input.trim();
+            matcher = pattern.matcher(input);
+        }while(! matcher.matches());
 
         if (input.length() > 0) {
             string = Optional.of(input);
