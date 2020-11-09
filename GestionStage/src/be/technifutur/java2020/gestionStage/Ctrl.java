@@ -4,6 +4,7 @@ import be.technifutur.java2020.gestionStage.exception.*;
 import be.technifutur.java2020.gestionStage.vue.ConsignesVue;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -29,12 +30,13 @@ public class Ctrl {
         String reponseMenu="";
 
         while(! "0".equalsIgnoreCase(reponseMenu)){
-            System.out.println("********** Menu Organisateur *************");
-            System.out.println("* Que souhaitez-vous ?                   *");
-            System.out.println("* 1 - Ajouter un stage                   *");
-            System.out.println("* 2 - Voir tous les stages               *");
-            System.out.println("* 3 - Ajouter une activité à un stage    *");
-            System.out.println("* 0 - Quitter rôle organisateur          *");
+            System.out.println("********** Menu Organisateur ***************");
+            System.out.println("* Que souhaitez-vous ?                     *");
+            System.out.println("* 1 - Ajouter un stage                     *");
+            System.out.println("* 2 - Voir tous les stages                 *");
+            System.out.println("* 3 - Ajouter une activité à un stage      *");
+            System.out.println("* 4 - Voir toutes les activités d'un stage *");
+            System.out.println("* 0 - Quitter rôle organisateur            *");
             System.out.print("* Votre Choix ? ");
             reponseMenu=scanner.nextLine();
 
@@ -55,7 +57,16 @@ public class Ctrl {
                     } catch (NumeroDeStageNonValideException e) {
                         System.out.println("Numéro de stage non valide");
                     }
-
+                    break;
+                case "4" :
+                    vue.afficheStageSet();
+                    try {
+                        Integer cleStage = accesStage();
+                        vue.afficheHoraireStage(cleStage);
+                    } catch (NumeroDeStageNonValideException e) {
+                        System.out.println("Numéro de stage non valide");
+                    }
+                    break;
             }
         }
     }
@@ -250,5 +261,8 @@ public class Ctrl {
                 }
             }
     }
+
+
+
 
 }

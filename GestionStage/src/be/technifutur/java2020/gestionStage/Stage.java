@@ -1,6 +1,5 @@
 package be.technifutur.java2020.gestionStage;
 
-import be.technifutur.java2020.gestionStage.Activite;
 import be.technifutur.java2020.gestionStage.exception.ActiviteDejaExistanteDansCeStageException;
 import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideException;
 import be.technifutur.java2020.gestionStage.exception.DateDeFinNonValideException;
@@ -8,10 +7,9 @@ import be.technifutur.java2020.gestionStage.exception.DateDeFinNonValideExceptio
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Stage {
     private String name;
@@ -69,6 +67,14 @@ public class Stage {
 
     public Activite getActivite(String cle) {
         return activiteMap.get(cle);
+    }
+
+    public TreeSet<Activite> getActiviteSetOrderedByDateHeureDebut(){
+        TreeSet<Activite> activiteTreeSet = new TreeSet<Activite>();
+        for (Activite activite: activiteMap.values()) {
+            activiteTreeSet.add(activite);
+        }
+        return activiteTreeSet;
     }
 
     public void addActivite (Activite activite) throws ActiviteDejaExistanteDansCeStageException {

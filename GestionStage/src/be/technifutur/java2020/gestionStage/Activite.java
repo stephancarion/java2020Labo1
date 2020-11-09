@@ -6,7 +6,7 @@ import be.technifutur.java2020.gestionStage.exception.DureeNegativeOuEgaleAZeroE
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Activite {
+public class Activite implements Comparable{
     private String nom;
     private LocalDateTime debut;
     private int duree; // en minutes
@@ -54,5 +54,20 @@ public class Activite {
 
     public int getDuree() {
         return duree;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Activite otherActivite = (Activite) o;
+        return this.debut.compareTo(otherActivite.getDebut());
+    }
+
+    @Override
+    public String toString() {
+        return "Activite{" +
+                "nom='" + nom + '\'' +
+                ", debut=" + debut +
+                ", duree=" + duree +
+                '}';
     }
 }
