@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) {
         Factory factory = new Factory();
 
-        Ctrl ctrl = factory.getCtrl();
-        ctrl.start();
+        Application app = factory.getApp();
+        app.run();
         factory=null;
     }
 }

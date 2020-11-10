@@ -298,40 +298,43 @@ public class Ctrl {
         String prenom;
         Optional<String> nomClub;
         Optional<String> mail;
+        boolean stop = false;
 
         input = getNomParticipant();
 
-        if (! "0".equalsIgnoreCase(input)){
+        stop = "0".equalsIgnoreCase(input);
+        if (! stop){
             nom = input;
 
             input = getPrenomParticipant();
 
-            if (! "0".equalsIgnoreCase(input)){
+            stop = "0".equalsIgnoreCase(input);
+            if (! stop){
                 prenom = input;
 
-                consigne = "Entrez le nom du club du participant (optionnel: appuyez sur enter directement) ou 0 pour sortir : ";
-                pattern = PatternPerso.videOuLettresUniquementOuZero;
-                optionalInput = inputToOptionalString(consigne, pattern);
+                optionalInput = getOptionalNomClubParticipant();
 
-                if ((optionalInput.isPresent() && ! "q".equalsIgnoreCase(optionalInput.get())) || optionalInput.isEmpty()){
-                    if (optionalInput.isPresent()){
+                if (optionalInput.isPresent()){
+                    input = optionalInput.get();
+                    stop = "0".equalsIgnoreCase(input);
+                    nomClub = Optional.of(input);
+                }else{
+                    nomClub = Optional.empty();
+                    stop = false;
+                }
+
+                if (! stop){
+                    optionalInput = getOptionalMailParticipant();
+
+                    if (optionalInput.isPresent()) {
                         input = optionalInput.get();
-                        nomClub = Optional.of(input);
-                    }else{
-                        nomClub = Optional.empty();
+                        stop = "0".equalsIgnoreCase(input);
+                        mail = Optional.of(input);
+                    } else {
+                        mail = Optional.empty();
                     }
-                    consigne = "Entrez le mail du participant (optionnel: appuyez sur enter directement) ou 0 pour sortir : ";
-                    pattern = PatternPerso.videOuMailOuZero;
-                    optionalInput = inputToOptionalString(consigne, pattern);
 
-                    if ((optionalInput.isPresent() && ! "q".equalsIgnoreCase(optionalInput.get())) || optionalInput.isEmpty()) {
-                        if (optionalInput.isPresent()) {
-                            input = optionalInput.get();
-                            mail = Optional.of(input);
-                        } else {
-                            mail = Optional.empty();
-                        }
-
+                    if (! stop){
                         Participant participant = null;
                         try {
                             participant = new Participant(nom, prenom, nomClub, mail);
@@ -343,15 +346,13 @@ public class Ctrl {
                             System.out.println("Un participant avec les mêmes nom et prénom existe déjà");
                         }
                     }
-
-
                 }
             }
         }
     }
 
     private String getNomParticipant(){
-        consigne = "Entrez le nom du participant (obligatoire) ou 0 pour sortir : ";
+        consigne = "Entrez le nom du participant (obligatoire)(sortie : 0 + enter) : ";
         pattern = PatternPerso.pasVideEtLettresUniquementOuZero;
         input = inputToString(consigne, pattern);
 
@@ -359,11 +360,27 @@ public class Ctrl {
     }
 
     private String getPrenomParticipant(){
-        consigne = "Entrez le prénom du participant (obligatoire) ou 0 pour sortir : ";
+        consigne = "Entrez le prénom du participant (obligatoire)(sortie : 0 + enter) : ";
         pattern = PatternPerso.pasVideEtLettresUniquementOuZero;
         input = inputToString(consigne, pattern);
 
         return input;
+    }
+
+    private Optional<String> getOptionalNomClubParticipant(){
+        consigne = "Entrez le nom du club du participant (optionnel: enter)(sortie : 0 + enter) : ";
+        pattern = PatternPerso.videOuLettresUniquementOuZero;
+        optionalInput = inputToOptionalString(consigne, pattern);
+
+        return optionalInput;
+    }
+
+    private Optional<String> getOptionalMailParticipant(){
+        consigne = "Entrez le mail du participant (optionnel: enter)(sortie : 0 + enter) : ";
+        pattern = PatternPerso.videOuMailOuZero;
+        optionalInput = inputToOptionalString(consigne, pattern);
+
+        return optionalInput;
     }
 
     private String inputToString(String consigne, Pattern pattern){

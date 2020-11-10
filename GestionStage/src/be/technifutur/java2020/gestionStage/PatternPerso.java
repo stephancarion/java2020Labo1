@@ -11,4 +11,6 @@ public class PatternPerso {
     public static final Pattern videOuLettresUniquementOuZero = Pattern.compile("([a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*)|0");
 
     public static final Pattern videOuMailOuZero = Pattern.compile("(([^@]+@[^@]+)|0)?");
+
+    public static final Pattern pasVideEtChiffresUniquement = Pattern.compile("[1-9]*[0-9]+");
 }

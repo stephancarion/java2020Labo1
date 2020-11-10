@@ -1,13 +1,20 @@
-package be.technifutur.java2020.gestionStage.vue;
+package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.Item;
+import be.technifutur.java2020.gestionStage.MenuCtrl;
+
 import java.util.LinkedHashSet;
+import java.util.Optional;
 
 public class MenuVue {
-    LinkedHashSet<Item> itemSet;
-    //MenuCtrl menuCtrl;
+    private MenuModel model;
 
-    public void affiche(String titre, LinkedHashSet<Item> itemSet) {
+    public void setModel(MenuModel model) {
+        this.model = model;
+    }
+
+    public void affiche(String titre) {
+        LinkedHashSet<String> itemNameSet = this.model.itemNameSet();
         String affiche ="";
         int cptItem = 0;
 
@@ -15,10 +22,10 @@ public class MenuVue {
         affiche += "**********" + titre +"**********\n";
 
         // Liste des items si au moins 1 item dans le set
-        if (itemSet.size() > 0) {
-            for (Item item : itemSet) {
+        if (model.nbItem() > 0) {
+            for (String nom : itemNameSet) {
                 cptItem++;
-                affiche += " " + cptItem + ". " + item + "\n";
+                affiche += " " + cptItem + ". " + nom + "\n";
             }
             // item de sortie
             affiche += " 0. Sortie de ce menu\n";
