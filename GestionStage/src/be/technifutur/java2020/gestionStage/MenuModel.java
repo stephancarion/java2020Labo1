@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 
-public class MenuModel implements Runnable{
+public class MenuModel {
     private LinkedHashSet<Item> itemSet;
     private String nomMenu;
     private Optional<MenuModel> menuModelPrecedent;
@@ -16,8 +16,16 @@ public class MenuModel implements Runnable{
         this.menuModelPrecedent = menuModelPrecedent;
     }
 
+    public String getNomMenu (){
+        return this.nomMenu;
+    }
+    public Optional<MenuModel> getMenuModelPrecedent() {
+        return menuModelPrecedent;
+    }
+
     public MenuModel(String nomMenu, Item[] itemSet) {
         this.nomMenu = nomMenu;
+        this.itemSet = new LinkedHashSet<>();
         for (Item item: itemSet) {
             this.itemSet.add(item);
         }
@@ -52,7 +60,7 @@ public class MenuModel implements Runnable{
         return item;
     }
 
-    public void run(){
-
+    public MenuModel getModel(){
+        return this;
     }
 }

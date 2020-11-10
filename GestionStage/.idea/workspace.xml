@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe80da28-6229-4e68-a114-a4c53f0bef95" name="Default Changelist" comment="Hello World!">
-      <change afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuCtrl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/exception/PositionInvalideException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Factory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Factory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GestionStage/be/technifutur/java2020/gestionStage/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Ctrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Ctrl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Factory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Factory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/PatternPerso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/PatternPerso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/menu/MenuGeneral.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/vue/MenuVue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuVue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuVue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/technifutur/java2020/gestionStage/MenuVue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +86,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="Hello World!" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser" timestamp="1605026290642">
+    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser" timestamp="1605037041787">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1605022844047" />
-    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1605026290642" />
+    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1605037041787" />
     <state x="413" y="140" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1604666355020">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -122,26 +121,26 @@
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1604671898801" />
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604496436518" />
-    <state width="1323" height="244" key="GridCell.Tab.0.bottom" timestamp="1605019572072">
+    <state width="1323" height="321" key="GridCell.Tab.0.bottom" timestamp="1605040249229">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="244" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1605019572072" />
-    <state width="1323" height="283" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1604683476971" />
-    <state width="1323" height="244" key="GridCell.Tab.0.center" timestamp="1605019572071">
+    <state width="1323" height="321" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1605040249229" />
+    <state width="1323" height="321" key="GridCell.Tab.0.center" timestamp="1605040249229">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="244" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1605019572071" />
-    <state width="1323" height="283" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1604683476971" />
-    <state width="1323" height="244" key="GridCell.Tab.0.left" timestamp="1605019572070">
+    <state width="1323" height="321" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1605040249229" />
+    <state width="1323" height="321" key="GridCell.Tab.0.left" timestamp="1605040249229">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="244" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1605019572070" />
-    <state width="1323" height="283" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1604683476971" />
-    <state width="1323" height="244" key="GridCell.Tab.0.right" timestamp="1605019572071">
+    <state width="1323" height="321" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1605040249229" />
+    <state width="1323" height="321" key="GridCell.Tab.0.right" timestamp="1605040249229">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="244" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1605019572071" />
-    <state width="1323" height="283" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1604683476971" />
+    <state width="1323" height="321" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1605040249229" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1604492791539">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

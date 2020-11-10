@@ -5,7 +5,7 @@ import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideExcep
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Item implements Runnable{
+public class Item {
     private String nom;
     private Object objetToRun;
     private String nomMethodeToRun;
@@ -22,12 +22,16 @@ public class Item implements Runnable{
         return nom;
     }
 
-    @Override
-    public void run() {
+    public Object getObjetToRun() {
+        return objetToRun;
+    }
+
+    public Object run() {
         Method m = null;
+        Object o = null;
         try {
             m = objetToRun.getClass().getMethod(nomMethodeToRun);
-            m.invoke(objetToRun);
+            o = m.invoke(objetToRun);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -35,5 +39,6 @@ public class Item implements Runnable{
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        return o;
     }
 }

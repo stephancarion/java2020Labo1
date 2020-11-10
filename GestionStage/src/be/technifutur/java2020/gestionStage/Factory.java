@@ -28,7 +28,9 @@ public class Factory {
             app = new Application();
             app.setVue(getMenuVue());
             app.setCtrl(getMenuCtrl());
-            app.setModel(getMenuGeneralModel());
+            app.setModelPrecedent(Optional.empty());
+            app.setTitre("Menu Général");
+            app.setModelEnCours(getMenuGeneralModel());
             getMenuVue().setModel(getMenuGeneralModel());
             getMenuCtrl().setModel(getMenuGeneralModel());
         }
@@ -92,11 +94,11 @@ public class Factory {
 
     public MenuModel getMenuGeneralModel() {
         if (menuGeneralModel == null){
-            Item item1 = new Item("Visiteur",getMenuVisiteurModel(),"run");
-            Item item2 = new Item("Inscrit",getMenuInscritModel(),"run");
-            Item item3 = new Item("Organisateur",getMenuOrganisateurModel(),"run");
-            Item item4 = new Item("Trésorier",getMenuTresorierModel(),"run");
-            Item item5 = new Item("Secrétariat",getMenuSecretariatModel(),"run");
+            Item item1 = new Item("Visiteur",getMenuVisiteurModel(),"getModel");
+            Item item2 = new Item("Inscrit",getMenuInscritModel(),"getModel");
+            Item item3 = new Item("Organisateur",getMenuOrganisateurModel(),"getModel");
+            Item item4 = new Item("Trésorier",getMenuTresorierModel(),"getModel");
+            Item item5 = new Item("Secrétariat",getMenuSecretariatModel(),"getModel");
             Item[] itemTab = {item1, item2, item3, item4, item5};
             menuGeneralModel = new MenuModel("Général", itemTab);
             menuGeneralModel.setMenuModelPrecedent(Optional.empty());
