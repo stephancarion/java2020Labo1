@@ -6,9 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PatternPerso {
-    public static final Pattern pasVideEtLettresUniquementOuZero = Pattern.compile("([a-zA-ZàâäçéèêëîïôöùûüÿÀÂÄÉÈÊËÎÏÔÖÙÛÜ-]+)|0");
+    public static final Pattern pasVideEtLettresUniquementOuZero = Pattern.compile("([a-zA-ZàâäçéèêëîïôöùûüÿÀÂÄÉÈÊËÎÏÔÖÙÛÜ-]+?)|0");
 
-    public static final Pattern videOuLettresUniquementOuZero = Pattern.compile("([a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*)|0");
+    public static final Pattern pasVideEtLettresUniquementSansZero = Pattern.compile("[a-zA-ZàâäçéèêëîïôöùûüÿÀÂÄÉÈÊËÎÏÔÖÙÛÜ-]+?");
+
+    public static final Pattern videOuLettresUniquementOuZero = Pattern.compile("([a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÉÈÊËÎÏÔÖÙÛÜ]*+)|0");
 
     public static final Pattern videOuMailOuZero = Pattern.compile("(([^@]+@[^@]+)|0)?");
 
@@ -19,4 +21,5 @@ public class PatternPerso {
                                                                             "([0-9][0-9][0-9][0-9]) "+ // yyyy  --> entre 0000 et 9999
                                                                             "(([01][0-9])|(2[0-3])):"+ // hh: --> entre 00 et 23
                                                                             "([0-5][0-9]))|0"); // mm --> entre 00 et 59);
+    public static final Pattern pasVideEtOOuNOuZero = Pattern.compile("[oOnN0]{1}+");
 }

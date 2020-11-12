@@ -65,23 +65,13 @@ public class Participant {
         return mail;
     }
 
-    public void addNomClub(String nomClub){
-        if(nomClub.length() > 0){
-            this.nomClub=Optional.of(nomClub);
-        }
+
+    public void setNomClub(Optional<String> nomClub){
+        this.nomClub=nomClub;
     }
 
-    public void removeNomClub(){
-        this.nomClub=Optional.empty();
+    public void setMail(Optional<String> mail){
+        this.mail = mail;
     }
 
-    public void addMail(String mail){
-        if(mail.length() > 0){
-            this.mail=Optional.of(mail);
-        }
-    }
-
-    public void removeMail(){
-        this.mail=Optional.empty();
-    }
 }

@@ -10,7 +10,7 @@ public class Model {
     private static int cptStage=0;
     private HashMap<String, Participant> participantMap = new HashMap<>();
 
-     public static int getNbStage() {
+    public static int getNbStage() {
         return cptStage;
     }
 
@@ -25,8 +25,6 @@ public class Model {
     public Stage getStage(String nomStage) {
         return stageMap.get(nomStage);
     }
-
-
 
     public HashSet<Stage> getStageSet(){
         if (stageSet == null){
@@ -44,9 +42,13 @@ public class Model {
         return participantMap.get(cle);
     }
 
+    public Collection<Participant> getParticipantCollection(){
+        return participantMap.values();
+    }
+
     public void addParticipant(Participant participant) throws ParticipantDejaExistantException{
         if (! containParticipant(participant)){
-            String cle = participant.getNom() + " " + participant.getPrenom();
+            String cle = participant.getNom().toLowerCase() + " " + participant.getPrenom().toLowerCase();
             participantMap.put(cle, participant);
         }else{
             throw new ParticipantDejaExistantException();
@@ -54,7 +56,13 @@ public class Model {
     }
 
     public boolean containParticipant(Participant participant){
-        String cle = participant.getNom() + " " + participant.getPrenom();
+        String cle = participant.getNom().toLowerCase() + " " + participant.getPrenom().toLowerCase();
         return participantMap.containsKey(cle);
     }
+
+    public boolean containParticipant(String nomParticipant, String prenomParticipant){
+        String cle = nomParticipant.toLowerCase() + " " + prenomParticipant.toLowerCase();
+        return participantMap.containsKey(cle);
+    }
+
 }

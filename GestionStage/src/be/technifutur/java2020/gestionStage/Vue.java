@@ -181,4 +181,27 @@ public class Vue {
         }
         System.out.println(affiche);
     }
+
+    public void afficheParticipant(Participant participant) {
+        String affiche;
+        try{
+            String nom = participant.getNom();
+            String prenom = participant.getPrenom();
+            String nomClub = participant.getNomClub();
+            String mail = participant.getMail();
+
+            affiche = "\n"+
+                    "********************* Participant *********************\n"+
+                    "* Nom et prénom : " + nom + " " + prenom + "\n" +
+                    "* Nom du club (optionnel) : " + nomClub +"\n" +
+                    "* Mail (optionnel) : " + mail +"\n" +
+                    "********************************************************\n";
+        } catch (NullPointerException e){
+            affiche = "\n"+
+                    "*******************************\n"+
+                    "* Ce participant n'existe pas *\n" +
+                    "*******************************\n";
+        }
+        System.out.println(affiche);
+    }
 }

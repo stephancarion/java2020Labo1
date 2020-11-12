@@ -31,6 +31,24 @@ public class MenuModel {
         }
     }
 
+    public MenuModel(String nomMenu) {
+        this.nomMenu = nomMenu;
+        this.itemSet = new LinkedHashSet<>();
+    }
+
+    public void addItem(Item item){
+        this.itemSet.add(item);
+    }
+
+
+
+    public void setNewItemSet(Item[] itemSet) {
+        this.itemSet.clear();
+        for (Item item:itemSet) {
+            this.itemSet.add(item);
+        }
+    }
+
     public LinkedHashSet<String> itemNameSet(){
         LinkedHashSet<String> set = new LinkedHashSet<>();
 

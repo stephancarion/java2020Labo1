@@ -214,41 +214,161 @@ public class Ctrl {
             if (! stop){
                 prenom = input;
 
-                optionalInput = getOptionalNomClubParticipant();
+                if(model.containParticipant(nom, prenom)){
 
-                if (optionalInput.isPresent()){
-                    input = optionalInput.get();
+                    consigne = "Ce participant existe déjà ! \n" +
+                                "Souhaitez-vous le modifier (O/N)(sortir : 0 + enter)? ";
+                    pattern = PatternPerso.pasVideEtOOuNOuZero;
+
+                    input = inputToString();
+
                     stop = "0".equalsIgnoreCase(input);
-                    nomClub = Optional.of(input);
+
+                    if(! stop){
+                        if ("o".equalsIgnoreCase(input)){
+                            modifierParticipant(model.getParticipant(nom,prenom));
+                        }
+                    }
                 }else{
-                    nomClub = Optional.empty();
-                    stop = false;
-                }
+                    optionalInput = getOptionalNomClubParticipant();
 
-                if (! stop){
-                    optionalInput = getOptionalMailParticipant();
-
-                    if (optionalInput.isPresent()) {
+                    if (optionalInput.isPresent()){
                         input = optionalInput.get();
                         stop = "0".equalsIgnoreCase(input);
-                        mail = Optional.of(input);
-                    } else {
-                        mail = Optional.empty();
+                        nomClub = Optional.of(input);
+                    }else{
+                        nomClub = Optional.empty();
+                        stop = false;
                     }
 
                     if (! stop){
-                        try {
-                            Participant participant = new Participant(nom, prenom, nomClub, mail);
-                            model.addParticipant(participant);
-                            vue.afficheParticipantAjoute(participant);
-                        } catch (ChaineDeCaractereVideException e) {
-                            System.out.println("Impossible de créer le participant car une chaîne de caractère est vide");
-                        } catch (ParticipantDejaExistantException e){
-                            System.out.println("Un participant avec les mêmes nom et prénom existe déjà");
+                        optionalInput = getOptionalMailParticipant();
+
+                        if (optionalInput.isPresent()) {
+                            input = optionalInput.get();
+                            stop = "0".equalsIgnoreCase(input);
+                            mail = Optional.of(input);
+                        } else {
+                            mail = Optional.empty();
+                        }
+
+                        if (! stop){
+                            try {
+                                Participant participant = new Participant(nom, prenom, nomClub, mail);
+                                model.addParticipant(participant);
+                                vue.afficheParticipantAjoute(participant);
+                            } catch (ChaineDeCaractereVideException e) {
+                                System.out.println("Impossible de créer le participant car une chaîne de caractère est vide");
+                            } catch (ParticipantDejaExistantException e){
+                                System.out.println("Un participant avec les mêmes nom et prénom existe déjà");
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    // modifier un participant
+    private void modifierParticipant(Participant participant) {
+        Optional<String> newNomClub;
+        Optional<String> newMail;
+
+        vue.afficheParticipant(participant);
+
+        consigne = "Vous pouvez enter un nouveau nom de club (Optionnel : enter)(Sortie: 0 + enter) : ";
+        pattern = PatternPerso.videOuLettresUniquementOuZero;
+
+        optionalInput = inputToOptionalString();
+
+        if (optionalInput.isPresent()){
+            stop = "0".equalsIgnoreCase(optionalInput.get());
+        }
+
+        if (! stop){
+            participant.setNomClub(optionalInput);
+
+            consigne = "Vous pouvez enter un nouvel email (Optionnel : enter)(Sortie: 0 + enter) : ";
+            pattern = PatternPerso.videOuMailOuZero;
+
+            optionalInput = inputToOptionalString();
+
+            if (optionalInput.isPresent()){
+                stop = "0".equalsIgnoreCase(optionalInput.get());
+            }
+
+            if (! stop){
+                participant.setMail(optionalInput);
+
+                vue.afficheParticipant(participant);
+            }
+        }
+
+    }
+
+    // inscrire un participant à une ou plusieurs activités
+    public void inscrireParticipantAActivite(){
+        String nomParticipant;
+        String prenomParticipant;
+
+        pattern = PatternPerso.pasVideEtLettresUniquementOuZero;
+        consigne = "Entrez votre nom (obligatoire)(Sortir : 0 + enter) : ";
+        input = inputToString();
+
+        stop = "0".equalsIgnoreCase(input);
+
+        if (! stop){
+            nomParticipant = input;
+
+            consigne = "Entrez votre prénom (obligatoire)(Sortir : 0 + enter) : ";
+            input = inputToString();
+
+            stop = "0".equalsIgnoreCase(input);
+
+            if (! stop){
+                prenomParticipant = input;
+
+                boolean containParticipant = model.containParticipant(nomParticipant, prenomParticipant);
+
+                while (! (containParticipant || stop)){
+                    System.out.println("Le participant " + nomParticipant + prenomParticipant + " n'existe pas ! ");
+                    consigne = "Entrez votre nom (obligatoire)(Sortir : 0 + enter) : ";
+                    input = inputToString();
+
+                    stop = "0".equalsIgnoreCase(input);
+
+                    if (! stop) {
+                        nomParticipant = input;
+
+                        consigne = "Entrez votre prénom (obligatoire)(Sortir : 0 + enter) : ";
+                        input = inputToString();
+
+                        stop = "0".equalsIgnoreCase(input);
+
+                        if (!stop) {
+                            prenomParticipant = input;
+                            containParticipant = model.containParticipant(nomParticipant, prenomParticipant);
+                        }
+                    }
+                }
+                if (containParticipant){
+                    Participant participant = model.getParticipant(nomParticipant, prenomParticipant);
+                    vue.afficheStageSet();
+                    
+                }
+
+            }
+        }
+
+
+
+        {
+            System.out.println("Le participant " + nomParticipant + prenomParticipant + " n'existe pas");
+            consigne = "Entrez votre nom (obligatoire)(Sortir : 0 + enter) : ";
+            nomParticipant = inputToString();
+
+            consigne = "Entrez votre prénom (obligatoire)(Sortir : 0 + enter) : ";
+            prenomParticipant = inputToString();
         }
     }
 
