@@ -4,27 +4,51 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Vue {
     private Model model;
+    private HashMap <Integer, Stage> stageMap;
+    private static int cptStage = 0;
+
+    private HashMap<Integer, Stage> getStageMap() {
+        if (stageMap ==  null){
+            stageMap = new HashMap<>();
+        }
+        return stageMap;
+    }
+
+    public int nbStage(){
+        return cptStage;
+    }
 
     public void setModel(Model model) {
         this.model = model;
     }
 
-    public void afficheInfosStageAjoute(Integer cle){
+    public boolean choixStagePossible(int choix){
+        stageMap = getStageMap();
+        return stageMap.containsKey(choix);
+    }
+
+    public Stage stageChoisi(int choix){
+        stageMap = getStageMap();
+        return stageMap.get(choix);
+    }
+
+    public void afficheStageAjoute(String cle){
         String affiche;
         try{
             Stage stage = model.getStage(cle);
+            cptStage ++;
+            getStageMap();
+            this.stageMap.put(cptStage, stage);
+
             String nomStage = stage.getName();
             String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureDebut = stage.getHeureDebut().toString();
+            String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("hh'h'mm"));
             String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureFin = stage.getHeureFin().toString();
+            String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("hh'h'mm"));
 
             affiche = "\n"+
                     "************ Stage ajouté ************\n"+
@@ -43,82 +67,49 @@ public class Vue {
     }
 
     public void afficheStageSet(){
+        int cpt=0;
         String affiche="";
 
         // Séparation avec le bloc précédent
         affiche += "\n";
 
-        // En-tête d'affiche
-        affiche += "***********************************************************\n";
-        affiche += "******************* Ensemble des stages *******************\n";
-        affiche += "***********************************************************\n";
+        if (model.getStageSet().size() > 0) {
+            // En-tête d'affiche
+            affiche += "*******************************************************************************\n";
+            affiche += "***************************** Ensemble des stages *****************************\n";
+            affiche += "*******************************************************************************\n";
 
-        // En-tête de colonne.
-        affiche += " N°\tNom, date et heure de début\n";
+            // En-tête de colonne.
+            affiche += " N°\t\tNom, date et heure de début\n";
 
-        // Lignes des stages disponibles
-        Set<Integer> cleStageSet = model.getCleStageSet();
-        for (Integer cle : cleStageSet) {
-            Stage stage = model.getStage(cle);
-            affiche += " "+ cle + "\t" +
-                    stage.getName() +", "+
-                        stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+
-                        " à " + stage.getHeureDebut() + "\n";
+            // Lignes des stages disponibles
+            for (Stage stage : model.getStageSet()) {
+                cpt++;
+                String nom = stage.getName();
+                String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("hh'h'mm"));
+                String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("hh'h'mm"));
+
+                affiche += " " + cpt + ".\t\t" +
+                        nom +
+                        " commence le " + dateDebut + " à " + heureDebut +
+                        " et se termine le " + dateFin + " à " + heureFin + "\n";
+            }
+
+            // pied de tableau
+            affiche += "*******************************************************************************\n";
+        }else{
+            affiche += "*******************************************************************************\n";
+            affiche += "*************************** Pas de stage disponible ***************************\n";
+            affiche += "*******************************************************************************\n";
         }
-
-        // pied de tableau
-        affiche += "***********************************************************\n";
 
         System.out.println(affiche);
     }
 
-    public void afficheInfoActiviteStage(Integer cleStage){
-        String texteAffichage;
-        try{
-            Stage stage = model.getStage(cleStage);
-
-            String nomStage = stage.getName();
-            String dateDebutStage = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureDebutStage = stage.getHeureDebut().toString();
-            String dateFinStage=stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureFinStage = stage.getHeureFin().toString();
-
-            texteAffichage = "\n"+
-                    "**************** Stage  ***************\n"+
-                    "* Nom du stage : " + nomStage + "\n" +
-                    "* Debut : " + dateDebutStage + " à "+ heureDebutStage+"\n" +
-                    "* Fin : " + dateFinStage + " à "+ heureFinStage+"\n" +
-                    "*********** Liste des activités du stage ***********\n";
-            // En-tête de colonne.
-            texteAffichage += " Nom, date et heure de début, durée\n";
-
-            Set<String> cleActiviteSet = stage.getCleActiviteSet();
-            for (String cleActivite : cleActiviteSet) {
-                Activite activite = stage.getActivite(cleActivite);
-                String nomActivite = activite.getNom();
-                String dateDebutActivite = activite.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String heureDebutActivite = activite.getDebut().toLocalTime().toString();
-                Integer dureeActivite = activite.getDuree();
-
-                texteAffichage += " "+ nomActivite + ", " +
-                        dateDebutActivite+ " à " + heureDebutActivite + ", "+
-                        dureeActivite + " minute(s)\n";
-            }
-
-            // pied de tableau
-            texteAffichage += "***************************************************\n";
-        } catch (NullPointerException e){
-            texteAffichage = "\n"+
-                    "***********************\n"+
-                    "* Pas de stage ajouté *\n" +
-                    "***********************\n";
-        }
-        System.out.println(texteAffichage);
-    }
-
-    public void afficheHoraireStage(Integer cleStage){
+    public void afficheHoraireStage(Stage stage){
         String affiche = "";
-        Stage stage = model.getStage(cleStage);
         TreeSet<Activite> activiteSet = stage.getActiviteSetOrderedByDateHeureDebut();
         Iterator<Activite> iterator = activiteSet.iterator();
 
@@ -140,23 +131,20 @@ public class Vue {
              */
             LocalDate dateDebutActivite = stage.getDateDebut().minusDays(1);
 
-
             while (iterator.hasNext()){
                 Activite activite = iterator.next();
 
                 if (dateDebutActivite.compareTo(activite.getDebut().toLocalDate()) != 0){
                     dateDebutActivite = activite.getDebut().toLocalDate();
-                    String debutActiviteAfficheDate = dateDebutActivite.format(DateTimeFormatter.ofPattern("EE dd L yyyy"));
+                    String debutActiviteAfficheDate = dateDebutActivite.format(DateTimeFormatter.ofPattern("EEEE dd LLLL yyyy"));
                     affiche += "\t" + debutActiviteAfficheDate + "\n";
                 }
 
                 LocalTime heureDebutActivite = activite.getDebut().toLocalTime();
-                String heureDebutActiviteAffiche = heureDebutActivite.format(DateTimeFormatter.ofPattern("HH"))+
-                        "h"+ heureDebutActivite.format(DateTimeFormatter.ofPattern("mm"));
+                String heureDebutActiviteAffiche = heureDebutActivite.format(DateTimeFormatter.ofPattern("HH'h'mm"));
 
                 LocalTime heureFinActivite = activite.getFin().toLocalTime();
-                String heureFinActiviteAffiche = heureFinActivite.format(DateTimeFormatter.ofPattern("HH"))+
-                        "h"+ heureFinActivite.format(DateTimeFormatter.ofPattern("mm"));
+                String heureFinActiviteAffiche = heureFinActivite.format(DateTimeFormatter.ofPattern("HH'h'mm"));
 
                 String nomActivite = activite.getNom();
 

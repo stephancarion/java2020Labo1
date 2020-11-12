@@ -18,6 +18,7 @@ public class Factory {
 
     private MenuModel menuGeneralModel;
     private MenuModel menuVisiteurModel;
+    private MenuModel menuParticipantModel;
     private MenuModel menuInscritModel;
     private MenuModel menuOrganisateurModel;
     private MenuModel menuTresorierModel;
@@ -95,11 +96,12 @@ public class Factory {
     public MenuModel getMenuGeneralModel() {
         if (menuGeneralModel == null){
             Item item1 = new Item("Visiteur",getMenuVisiteurModel(),"getModel");
-            Item item2 = new Item("Inscrit",getMenuInscritModel(),"getModel");
-            Item item3 = new Item("Organisateur",getMenuOrganisateurModel(),"getModel");
-            Item item4 = new Item("Trésorier",getMenuTresorierModel(),"getModel");
-            Item item5 = new Item("Secrétariat",getMenuSecretariatModel(),"getModel");
-            Item[] itemTab = {item1, item2, item3, item4, item5};
+            Item item2 = new Item("Participant",getMenuParticipantModel(),"getModel");
+            Item item3 = new Item("Inscrit",getMenuInscritModel(),"getModel");
+            Item item4 = new Item("Organisateur",getMenuOrganisateurModel(),"getModel");
+            Item item5 = new Item("Trésorier",getMenuTresorierModel(),"getModel");
+            Item item6 = new Item("Secrétariat",getMenuSecretariatModel(),"getModel");
+            Item[] itemTab = {item1, item2, item3, item4, item5, item6};
             menuGeneralModel = new MenuModel("Général", itemTab);
             menuGeneralModel.setMenuModelPrecedent(Optional.empty());
         }
@@ -108,11 +110,21 @@ public class Factory {
 
     public MenuModel getMenuVisiteurModel() {
         if (menuVisiteurModel == null){
-            Item[] itemTab ={};
+            Item item1 = new Item("Affiche horaire stage",getCtrl(),"afficheHoraireStage");
+            Item[] itemTab ={item1};
             menuVisiteurModel = new MenuModel("Visiteur", itemTab);
             menuVisiteurModel.setMenuModelPrecedent(Optional.of(getMenuGeneralModel()));
         }
         return menuVisiteurModel;
+    }
+
+    public MenuModel getMenuParticipantModel() {
+        if (menuParticipantModel == null){
+            Item[] itemTab ={};
+            menuParticipantModel = new MenuModel("Participant", itemTab);
+            menuParticipantModel.setMenuModelPrecedent(Optional.of(getMenuGeneralModel()));
+        }
+        return menuParticipantModel;
     }
 
     public MenuModel getMenuInscritModel() {
@@ -126,7 +138,10 @@ public class Factory {
 
     public MenuModel getMenuOrganisateurModel() {
         if (menuOrganisateurModel == null){
-            Item[] itemTab ={};
+            Item item1 = new Item("Ajouter un stage",getCtrl(),"ajoutStage");
+            Item item2 = new Item("Ajouter une activité à un stage",getCtrl(),"ajoutActivite");
+            Item item3 = new Item("Ajouter une participant",getCtrl(),"ajoutParticipant");
+            Item[] itemTab ={item1, item2, item3};
             menuOrganisateurModel = new MenuModel("Organisateur", itemTab);
             menuOrganisateurModel.setMenuModelPrecedent(Optional.of(getMenuGeneralModel()));
         }

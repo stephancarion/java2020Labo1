@@ -40,8 +40,8 @@ public class Application implements Runnable{
             vue.affiche(this.titre);
             if (modelEnCours.nbItem() > 0){
                 ctrl.run();
-                choix = ctrl.getDernierChoixValide();
-                if (choix > 0){
+                choix = ctrl.getDernierChoix();
+                if (choix > 0 && choix <= modelEnCours.nbItem()){
                     try {
                         item = modelEnCours.getItem(choix);
                         Object o = item.run();

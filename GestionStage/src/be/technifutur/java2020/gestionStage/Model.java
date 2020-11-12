@@ -2,30 +2,41 @@ package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.exception.ParticipantDejaExistantException;
 
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class Model {
-    private HashMap<Integer, Stage> stageMap = new HashMap<>();
+    private HashMap<String, Stage> stageMap = new HashMap<>();
+    private LinkedHashSet<Stage> stageSet;
     private static int cptStage=0;
     private HashMap<String, Participant> participantMap = new HashMap<>();
 
-    public Set<Integer> getCleStageSet(){
-        return stageMap.keySet();
-    }
-
-    public static int getCptStage() {
+     public static int getNbStage() {
         return cptStage;
     }
 
-    public Stage getStage(Integer cle) {
-        return stageMap.get(cle);
-    }
-
-    public Integer addStage(Stage stage){
+    // Renvoie la clé du stage ajouté
+    public String addStage(Stage stage){
+        String cleNom = stage.getName();
+        stageMap.put(cleNom,stage);
         cptStage++;
-        stageMap.put(cptStage,stage);
-        return cptStage;
+        return cleNom;
+    }
+
+    public Stage getStage(String nomStage) {
+        return stageMap.get(nomStage);
+    }
+
+
+
+    public HashSet<Stage> getStageSet(){
+        if (stageSet == null){
+            stageSet = new LinkedHashSet<>();
+
+            for (Stage stage: stageMap.values()) {
+                stageSet.add(stage);
+            }
+        }
+        return stageSet;
     }
 
     public Participant getParticipant(String nomParticipant, String prenomParticipant){

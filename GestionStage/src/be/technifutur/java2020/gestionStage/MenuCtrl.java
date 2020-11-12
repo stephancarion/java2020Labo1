@@ -14,7 +14,7 @@ public class MenuCtrl implements Runnable{
     private String input;
     private Pattern pattern;
 
-    private int dernierChoixValide = 0;
+    private int dernierChoix = 0;
 
     public void setModel(MenuModel model) {
         this.model = model;
@@ -31,12 +31,10 @@ public class MenuCtrl implements Runnable{
         pattern = PatternPerso.pasVideEtChiffresUniquement;
 
         choixMenu = inputToIntChoixMenu(pattern);
-        while (choixMenu < 0 || choixMenu > model.nbItem()){
-            System.out.println("Choix non valide");
-            choixMenu = inputToIntChoixMenu(pattern);
+        if (choixMenu > model.nbItem()){
+            System.out.println("L'item " + choixMenu + " n'est pas dans la liste");
         }
-
-        dernierChoixValide = choixMenu;
+        dernierChoix = choixMenu;
 
     }
 
@@ -47,19 +45,17 @@ public class MenuCtrl implements Runnable{
         input =  scanner.nextLine();
         input = input.trim();
         matcher = pattern.matcher(input);
-        while(! matcher.matches()) {
+        if(! matcher.matches()) {
             System.out.println("Entrée non valide");
-            input =  scanner.nextLine();
-            input = input.trim();
-            matcher = pattern.matcher(input);
+            choixMenu = -1;
+        }else {
+            choixMenu = Integer.parseUnsignedInt(input);
         }
-
-        choixMenu = Integer.parseUnsignedInt(input);
 
         return choixMenu;
     }
 
-    public int getDernierChoixValide() {
-        return dernierChoixValide;
+    public int getDernierChoix() {
+        return dernierChoix;
     }
 }

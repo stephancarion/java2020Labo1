@@ -61,12 +61,8 @@ public class Stage {
         return fin;
     }
 
-    public Set<String> getCleActiviteSet(){
-        return activiteMap.keySet();
-    }
-
-    public Activite getActivite(String cle) {
-        return activiteMap.get(cle);
+    public boolean containActivite (String nomActivite){
+        return activiteMap.containsKey(nomActivite);
     }
 
     public TreeSet<Activite> getActiviteSetOrderedByDateHeureDebut(){
