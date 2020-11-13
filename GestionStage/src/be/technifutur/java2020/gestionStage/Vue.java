@@ -204,4 +204,26 @@ public class Vue {
         }
         System.out.println(affiche);
     }
+
+    public void afficheActiviteStage(Stage s, Activite a){
+        String affiche = "";
+        String nomS = s.getName();
+        String nomA = a.getNom();
+        String debutA = a.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
+        String finA = a.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
+
+        // En-tête
+        affiche += "************************* " + "Résumé activité" + " *************************\n";
+
+        // Stage
+        affiche += "* Stage : " + nomS + "\n";
+
+        // Activité
+        affiche += "* Activité : " + nomA + " du " + debutA + " au " + finA + "\n";
+
+        // Pied
+        affiche += "*******************************************************************\n";
+
+        System.out.println(affiche);
+    }
 }

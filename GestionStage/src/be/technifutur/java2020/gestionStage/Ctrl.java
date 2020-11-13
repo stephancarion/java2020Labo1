@@ -1,19 +1,15 @@
 package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.exception.*;
-import be.technifutur.java2020.gestionStage.vue.ConsignesVue;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Ctrl {
     private Model model;
     private Vue vue;
-    private ConsignesVue consignesVue;
     private Scanner scanner;
 
     private String input;
@@ -29,10 +25,6 @@ public class Ctrl {
 
     public void setVue(Vue vue) {
         this.vue = vue;
-    }
-
-    public void setConsignesVue(ConsignesVue consignesVue) {
-        this.consignesVue = consignesVue;
     }
 
     public void setScanner(Scanner scanner) {
@@ -306,8 +298,85 @@ public class Ctrl {
 
     }
 
-    // inscrire un participant à une ou plusieurs activités
-    public void inscrireParticipantAActivite(){
+    // inscrire un participant à une ou plusieurs activité(s)
+    public void inscrireParticipantAActivites(){
+        Participant participant = trouverParticipant();
+        int choixStage = 0;
+
+        if (participant != null){
+            vue.afficheParticipant(participant);
+
+            consigne = "Souhaitez-vous vous inscrire à une ou plusieurs activité(s) de stage (O/N) ? (Sortir : 0 + enter) ";
+            pattern=PatternPerso.pasVideEtOOuNOuZero;
+
+            input= inputToString();
+
+            stop = "0".equalsIgnoreCase(input) || "n".equalsIgnoreCase(input);
+
+            if (! stop){
+                vue.afficheStageSet();
+
+                consigne= "Indiquez le numéro du stage qui vous intéresse (Sortir: 0 + enter) : ";
+                pattern=PatternPerso.pasVideEtChiffresUniquement;
+
+                input = inputToString();
+                choixStage = Integer.parseUnsignedInt(input);
+
+                stop = choixStage == 0;
+
+                if (! stop){
+                    while(! (vue.choixStagePossible(choixStage)) || stop){
+                        System.out.println("Choix non trouvé");
+                        input = inputToString();
+                        choixStage = Integer.parseUnsignedInt(input);
+
+                        stop = choixStage == 0;
+                    }
+                    if (vue.choixStagePossible(choixStage)){
+                        Stage stage = vue.stageChoisi(choixStage);
+                        TreeSet<Activite> activites = stage.getActiviteSetOrderedByDateHeureDebut();
+                        Iterator<Activite> iterator = activites.iterator();
+
+                        while (iterator.hasNext() && !stop) {
+                            Activite activite = iterator.next();
+
+                            if (! participant.containActivite(activite)) {
+                                vue.afficheActiviteStage(stage, activite);
+                                TreeMap<Activite,Stage> inConflict = participant.getActivitiesInConflict(activite);
+
+                                if (inConflict.size() == 0) { // pas de conflits
+                                    consigne = "Souhaitez-vous ajouter l'activité ci-dessus à votre planning" +
+                                            "(O/N)(sortir : 0) : ";
+
+                                } else { // au min  1 conflit
+                                    consigne = "L'activité ci-dessus serait en parallèle avec d'autres\n";
+                                    consigne += "Souhaitez-vous tout de même ajouter l'activité ci-dessus à votre planning" +
+                                            "(O/N)(sortir : 0) : ";
+                                }
+
+                                pattern = PatternPerso.pasVideEtOOuNOuZero;
+
+                                input = inputToString();
+
+                                stop = "0".equalsIgnoreCase(input);
+
+                                if ("O".equalsIgnoreCase(input)) {
+                                    participant.addActivite(activite,stage);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    // trouver un participant existant
+    private Participant trouverParticipant(){
+        Participant participant=null;
+
         String nomParticipant;
         String prenomParticipant;
 
@@ -328,49 +397,17 @@ public class Ctrl {
             if (! stop){
                 prenomParticipant = input;
 
-                boolean containParticipant = model.containParticipant(nomParticipant, prenomParticipant);
-
-                while (! (containParticipant || stop)){
+                if (model.containParticipant(nomParticipant, prenomParticipant)){
+                    participant = model.getParticipant(nomParticipant, prenomParticipant);
+                }else{
                     System.out.println("Le participant " + nomParticipant + prenomParticipant + " n'existe pas ! ");
-                    consigne = "Entrez votre nom (obligatoire)(Sortir : 0 + enter) : ";
-                    input = inputToString();
-
-                    stop = "0".equalsIgnoreCase(input);
-
-                    if (! stop) {
-                        nomParticipant = input;
-
-                        consigne = "Entrez votre prénom (obligatoire)(Sortir : 0 + enter) : ";
-                        input = inputToString();
-
-                        stop = "0".equalsIgnoreCase(input);
-
-                        if (!stop) {
-                            prenomParticipant = input;
-                            containParticipant = model.containParticipant(nomParticipant, prenomParticipant);
-                        }
-                    }
+                    participant=trouverParticipant();
                 }
-                if (containParticipant){
-                    Participant participant = model.getParticipant(nomParticipant, prenomParticipant);
-                    vue.afficheStageSet();
-                    
-                }
-
             }
         }
-
-
-
-        {
-            System.out.println("Le participant " + nomParticipant + prenomParticipant + " n'existe pas");
-            consigne = "Entrez votre nom (obligatoire)(Sortir : 0 + enter) : ";
-            nomParticipant = inputToString();
-
-            consigne = "Entrez votre prénom (obligatoire)(Sortir : 0 + enter) : ";
-            prenomParticipant = inputToString();
-        }
+        return participant;
     }
+
 
 
     /*

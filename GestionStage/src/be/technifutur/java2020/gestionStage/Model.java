@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Model {
     private HashMap<String, Stage> stageMap = new HashMap<>();
-    private LinkedHashSet<Stage> stageSet;
     private static int cptStage=0;
     private HashMap<String, Participant> participantMap = new HashMap<>();
 
@@ -27,18 +26,15 @@ public class Model {
     }
 
     public HashSet<Stage> getStageSet(){
-        if (stageSet == null){
-            stageSet = new LinkedHashSet<>();
-
-            for (Stage stage: stageMap.values()) {
-                stageSet.add(stage);
-            }
+        LinkedHashSet<Stage> stageSet= new LinkedHashSet<>();
+        for (Stage stage: stageMap.values()) {
+            stageSet.add(stage);
         }
         return stageSet;
     }
 
     public Participant getParticipant(String nomParticipant, String prenomParticipant){
-        String cle = nomParticipant + " " + prenomParticipant;
+        String cle = nomParticipant.toLowerCase() + " " + prenomParticipant.toLowerCase();
         return participantMap.get(cle);
     }
 

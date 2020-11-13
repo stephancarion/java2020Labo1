@@ -1,9 +1,5 @@
 package be.technifutur.java2020.gestionStage;
 
-import be.technifutur.java2020.gestionStage.vue.ConsignesVue;
-
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -13,7 +9,6 @@ public class Factory {
     private Ctrl ctrl;
     private Model model;
     private Vue vue;
-    private ConsignesVue consignesVue;
     private MenuVue menuVue;
     private MenuCtrl menuCtrl;
 
@@ -52,7 +47,6 @@ public class Factory {
             ctrl.setScanner(getScanner());
             ctrl.setModel(getModel());
             ctrl.setVue(getVue());
-            ctrl.setConsignesVue(getConsignesVue());
         }
         return ctrl;
     }
@@ -72,12 +66,6 @@ public class Factory {
         return vue;
     }
 
-    public ConsignesVue getConsignesVue() {
-        if (consignesVue == null){
-            consignesVue = new ConsignesVue();
-        }
-        return consignesVue;
-    }
 
     public MenuVue getMenuVue() {
         if (menuVue == null) {
@@ -99,7 +87,7 @@ public class Factory {
             menuGeneralModel = new MenuModel("Général");
             menuGeneralModel.setMenuModelPrecedent(Optional.empty());
             Item item1 = new Item("Visiteur",getMenuVisiteurModel(),"getModel");
-            Item item2 = new Item("Participant",getMenuParticipantModel(),"getModel");
+            Item item2 = new Item("Participant",getCtrl(),"inscrireParticipantAActivites");
             Item item3 = new Item("Inscrit",getMenuInscritModel(),"getModel");
             Item item4 = new Item("Organisateur",getMenuOrganisateurModel(),"getModel");
             Item item5 = new Item("Trésorier",getMenuTresorierModel(),"getModel");
@@ -137,14 +125,16 @@ public class Factory {
         return menuVisiteurModel;
     }
 
-    public MenuModel getMenuParticipantModel() {
+    /*public MenuModel getMenuParticipantModel() {
         if (menuParticipantModel == null){
             menuParticipantModel = new MenuModel("Participant");
             menuParticipantModel.setMenuModelPrecedent(Optional.of(getMenuGeneralModel()));
+
+
             Item[] itemTab= {};
         }
         return menuParticipantModel;
-    }
+    }*/
 
     public MenuModel getMenuInscritModel() {
         if (menuInscritModel == null){
