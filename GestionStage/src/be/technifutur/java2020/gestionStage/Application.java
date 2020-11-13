@@ -10,6 +10,7 @@ public class Application implements Runnable{
     private MenuVue vue;
     private MenuCtrl ctrl;
     private String titre;
+    private Read read;
 
     public void setModelPrecedent(Optional<MenuModel> modelPrecedent) {
         this.modelPrecedent = modelPrecedent;
@@ -31,8 +32,14 @@ public class Application implements Runnable{
         this.titre = titre;
     }
 
+    public void setRead(Read read) {
+        this.read = read;
+    }
+
     @Override
     public void run() {
+        read.stagesRead();
+
         boolean sortie=false;
         int choix = 0;
         Item item;

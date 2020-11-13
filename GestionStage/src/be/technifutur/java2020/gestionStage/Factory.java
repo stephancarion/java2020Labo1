@@ -11,6 +11,8 @@ public class Factory {
     private Vue vue;
     private MenuVue menuVue;
     private MenuCtrl menuCtrl;
+    private Save save;
+    private Read read;
 
     private MenuModel menuGeneralModel;
     private MenuModel menuVisiteurModel;
@@ -28,6 +30,7 @@ public class Factory {
             app.setModelPrecedent(Optional.empty());
             app.setTitre("Menu Général");
             app.setModelEnCours(getMenuGeneralModel());
+            app.setRead(getRead());
             getMenuVue().setModel(getMenuGeneralModel());
             getMenuCtrl().setModel(getMenuGeneralModel());
         }
@@ -47,6 +50,7 @@ public class Factory {
             ctrl.setScanner(getScanner());
             ctrl.setModel(getModel());
             ctrl.setVue(getVue());
+            ctrl.setSave(getSave());
         }
         return ctrl;
     }
@@ -66,6 +70,21 @@ public class Factory {
         return vue;
     }
 
+    public Save getSave() {
+        if (save == null){
+            save = new Save();
+            save.setModel(getModel());
+        }
+        return save;
+    }
+
+    public Read getRead() {
+        if (read == null){
+            read = new Read();
+            read.setModel(getModel());
+        }
+        return read;
+    }
 
     public MenuVue getMenuVue() {
         if (menuVue == null) {

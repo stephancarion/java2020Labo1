@@ -11,6 +11,7 @@ public class Ctrl {
     private Model model;
     private Vue vue;
     private Scanner scanner;
+    private Save save;
 
     private String input;
     private Optional<String> optionalInput;
@@ -29,6 +30,10 @@ public class Ctrl {
 
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
+    }
+
+    public void setSave(Save save) {
+        this.save = save;
     }
 
     // ajout un stage au modèle
@@ -76,6 +81,7 @@ public class Ctrl {
                             // création d'un stage et ajout du stage au model + récupération de la cle pour affichage
                             String cle =  model.addStage(new Stage(nom,debut,fin));
                             vue.afficheStageAjoute(cle);
+                            save.stagesSave();
                         }catch ( DateDeFinNonValideException e) {
                             System.out.println("Stage non ajouté : les date et heure de fin sont postérieures au début");
                         }catch (ChaineDeCaractereVideException e) {

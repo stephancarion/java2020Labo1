@@ -46,9 +46,9 @@ public class Vue {
 
             String nomStage = stage.getName();
             String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("hh'h'mm"));
+            String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("HH'h'mm"));
             String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("hh'h'mm"));
+            String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("HH'h'mm"));
 
             affiche = "\n"+
                     "************ Stage ajouté ************\n"+
@@ -87,9 +87,9 @@ public class Vue {
                 cpt++;
                 String nom = stage.getName();
                 String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("hh'h'mm"));
+                String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("HH'h'mm"));
                 String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("hh'h'mm"));
+                String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("HH'h'mm"));
 
                 affiche += " " + cpt + ".\t\t" +
                         nom +
@@ -209,8 +209,8 @@ public class Vue {
         String affiche = "";
         String nomS = s.getName();
         String nomA = a.getNom();
-        String debutA = a.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
-        String finA = a.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
+        String debutA = a.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        String finA = a.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
         // En-tête
         affiche += "************************* " + "Résumé activité" + " *************************\n";

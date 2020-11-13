@@ -4,6 +4,7 @@ import be.technifutur.java2020.gestionStage.exception.ActiviteDejaExistanteDansC
 import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideException;
 import be.technifutur.java2020.gestionStage.exception.DateDeFinNonValideException;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Stage {
+public class Stage implements Serializable {
     private String name;
     private LocalDateTime debut;
     private LocalDateTime fin;
