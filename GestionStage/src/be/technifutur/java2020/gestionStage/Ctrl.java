@@ -251,15 +251,35 @@ public class Ctrl {
                         }
 
                         if (! stop){
-                            try {
-                                Participant participant = new Participant(nom, prenom, nomClub, mail);
+                            Participant participant = null;
+                            try  {
+                                participant = new Participant(nom, prenom, nomClub, mail);
                                 model.addParticipant(participant);
-                                vue.afficheParticipantAjoute(participant);
                             } catch (ChaineDeCaractereVideException e) {
                                 System.out.println("Impossible de créer le participant car une chaîne de caractère est vide");
                             } catch (ParticipantDejaExistantException e){
                                 System.out.println("Un participant avec les mêmes nom et prénom existe déjà");
                             }
+
+                            vue.afficheParticipantAjoute(participant);
+
+                            vue.afficheTarifStatut();
+
+                            consigne = "Quel statut tarifaire pour ce participant (obligatoire) ? ";
+                            pattern = PatternPerso.pasVideEtChiffresUniquement;
+
+                            input = inputToString();
+                            int choixStatut = Integer.parseInt(input);
+
+                            while (! vue.containChoixTarifStatut(choixStatut)){
+                                System.out.println("Choix non valide");
+                                input = inputToString();
+                                choixStatut = Integer.parseInt(input);
+                            }
+                            TarifStatut[] tarifStatuts = TarifStatut.values();
+
+                            participant.defineTarifStatut(tarifStatuts[choixStatut-1]);
+
                         }
                     }
                 }
@@ -368,6 +388,7 @@ public class Ctrl {
 
                                 if ("O".equalsIgnoreCase(input)) {
                                     participant.addActivite(activite,stage);
+                                    activite.addParticipant(participant);
                                 }
                             }
                         }
@@ -376,8 +397,6 @@ public class Ctrl {
             }
         }
     }
-
-
 
     // trouver un participant existant
     private Participant trouverParticipant(){

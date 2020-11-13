@@ -4,12 +4,14 @@ import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideExcep
 import be.technifutur.java2020.gestionStage.exception.DureeNegativeOuEgaleAZeroException;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Activite implements Comparable{
     private String nom;
     private LocalDateTime debut;
     private int duree; // en minutes
+    private HashSet<Participant> inscriptions;
 
     public Activite(String nom, LocalDateTime debut, int duree) throws ChaineDeCaractereVideException, DureeNegativeOuEgaleAZeroException {
         if (nom.length() >0){
@@ -25,6 +27,7 @@ public class Activite implements Comparable{
         }else{
             throw new DureeNegativeOuEgaleAZeroException();
         }
+        inscriptions = new HashSet<>();
     }
 
     @Override
@@ -54,6 +57,10 @@ public class Activite implements Comparable{
 
     public int getDuree() {
         return duree;
+    }
+
+    public void addParticipant(Participant p){
+        inscriptions.add(p);
     }
 
     @Override

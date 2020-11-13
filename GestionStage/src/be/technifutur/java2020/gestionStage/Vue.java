@@ -10,6 +10,7 @@ public class Vue {
     private Model model;
     private HashMap <Integer, Stage> stageMap;
     private static int cptStage = 0;
+    private TarifStatut tarifStatut;
 
     private HashMap<Integer, Stage> getStageMap() {
         if (stageMap ==  null){
@@ -158,7 +159,6 @@ public class Vue {
         System.out.println(affiche);
     }
 
-
     public void afficheParticipantAjoute(Participant participant) {
         String affiche;
         try{
@@ -189,12 +189,15 @@ public class Vue {
             String prenom = participant.getPrenom();
             String nomClub = participant.getNomClub();
             String mail = participant.getMail();
+            String statutTarif = participant.getTarifStatut().name().toUpperCase().charAt(0) +
+                    participant.getTarifStatut().name().toLowerCase().substring(1);
 
             affiche = "\n"+
                     "********************* Participant *********************\n"+
                     "* Nom et prénom : " + nom + " " + prenom + "\n" +
                     "* Nom du club (optionnel) : " + nomClub +"\n" +
                     "* Mail (optionnel) : " + mail +"\n" +
+                    "* Statut tarifaire : " + statutTarif + "\n" +
                     "********************************************************\n";
         } catch (NullPointerException e){
             affiche = "\n"+
@@ -226,4 +229,29 @@ public class Vue {
 
         System.out.println(affiche);
     }
+
+    public void afficheTarifStatut(){
+        int numero;
+        String nom;
+        String affiche = "\n";
+
+        // En-tête
+        affiche += "****************** Statuts tarifaires ******************\n";
+
+        // Liste des statuts tarifaires
+        for (TarifStatut tarif:TarifStatut.values()) {
+            numero = tarif.ordinal() + 1;
+            nom = tarif.name().toUpperCase().charAt(0) + tarif.name().toLowerCase().substring(1);
+            affiche += "* " + numero + ". " + nom + "\n";
+        }
+
+        // Pied
+        affiche += "********************************************************";
+        System.out.println(affiche);
+    }
+
+    public boolean containChoixTarifStatut(int choix){
+        return choix >= 1 && choix <= TarifStatut.values().length;
+    }
+
 }

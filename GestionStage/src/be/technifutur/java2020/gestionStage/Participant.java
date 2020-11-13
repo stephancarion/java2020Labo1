@@ -12,6 +12,7 @@ public class Participant {
     private Optional<String> nomClub;
     private Optional<String> mail;
     private TreeMap<Activite,Stage> planning;
+    private TarifStatut tarifStatut;
 
     public Participant(String nom, String prenom, Optional<String> nomClub, Optional<String> mail) throws ChaineDeCaractereVideException {
         if (nom.length() > 0 && prenom.length() > 0){
@@ -69,6 +70,10 @@ public class Participant {
         return mail;
     }
 
+    public TarifStatut getTarifStatut() {
+        return tarifStatut;
+    }
+
     public void setNomClub(Optional<String> nomClub){
         this.nomClub=nomClub;
     }
@@ -105,5 +110,9 @@ public class Participant {
             contains = iterator.next() == a;
         }
         return contains;
+    }
+
+    public void defineTarifStatut (TarifStatut tarifStatut){
+        this.tarifStatut = tarifStatut;
     }
 }
