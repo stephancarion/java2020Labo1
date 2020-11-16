@@ -8,42 +8,26 @@ import java.util.*;
 
 public class Vue {
     private Model model;
-    private HashMap <Integer, Stage> stageMap;
-    private static int cptStage = 0;
+    private HashMap<Integer, String> clesStages  = new HashMap<>();
     private TarifStatut tarifStatut;
 
-    private HashMap<Integer, Stage> getStageMap() {
-        if (stageMap ==  null){
-            stageMap = new HashMap<>();
-        }
-        return stageMap;
-    }
-
-    public int nbStage(){
-        return cptStage;
-    }
 
     public void setModel(Model model) {
         this.model = model;
     }
 
     public boolean choixStagePossible(int choix){
-        stageMap = getStageMap();
-        return stageMap.containsKey(choix);
+        return choix >= 1 && choix <= Model.getNbStage();
     }
 
     public Stage stageChoisi(int choix){
-        stageMap = getStageMap();
-        return stageMap.get(choix);
+        return model.getStage(clesStages.get(choix));
     }
 
     public void afficheStageAjoute(String cle){
         String affiche;
         try{
             Stage stage = model.getStage(cle);
-            cptStage ++;
-            getStageMap();
-            this.stageMap.put(cptStage, stage);
 
             String nomStage = stage.getName();
             String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -74,7 +58,8 @@ public class Vue {
         // Séparation avec le bloc précédent
         affiche += "\n";
 
-        if (model.getStageSet().size() > 0) {
+        if (Model.getNbStage() > 0) {
+            clesStages.clear();
             // En-tête d'affiche
             affiche += "*******************************************************************************\n";
             affiche += "***************************** Ensemble des stages *****************************\n";
@@ -91,6 +76,7 @@ public class Vue {
                 String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("HH'h'mm"));
                 String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("HH'h'mm"));
+                clesStages.put(cpt,nom);
 
                 affiche += " " + cpt + ".\t\t" +
                         nom +
@@ -214,6 +200,7 @@ public class Vue {
         String nomA = a.getNom();
         String debutA = a.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         String finA = a.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+
 
         // En-tête
         affiche += "************************* " + "Résumé activité" + " *************************\n";

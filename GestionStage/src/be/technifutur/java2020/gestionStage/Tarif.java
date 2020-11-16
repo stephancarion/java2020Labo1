@@ -1,12 +1,14 @@
 package be.technifutur.java2020.gestionStage;
 
 public interface Tarif {
-    int getReductionEnPourCent();
+    void setReductionEnPourCent(double reductionEnPourCent);
 
-    int getReductionEnDecimal();
+    double getReductionEnPourCent();
 
-    int getPrixActiviteSansReduction(Activite activite);
+    double getReductionEnDecimal();
 
-    int getPrixActiviteAvecReduction(Activite activite);
+    double getPrixActiviteSansReduction(Activite activite);
+
+    double getPrixActiviteAvecReduction(Activite activite);
 
 }

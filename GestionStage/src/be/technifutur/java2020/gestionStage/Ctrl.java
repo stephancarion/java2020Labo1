@@ -11,7 +11,6 @@ public class Ctrl {
     private Model model;
     private Vue vue;
     private Scanner scanner;
-    private Save save;
 
     private String input;
     private Optional<String> optionalInput;
@@ -32,9 +31,6 @@ public class Ctrl {
         this.scanner = scanner;
     }
 
-    public void setSave(Save save) {
-        this.save = save;
-    }
 
     // ajout un stage au modèle
     public void ajoutStage(){
@@ -81,7 +77,6 @@ public class Ctrl {
                             // création d'un stage et ajout du stage au model + récupération de la cle pour affichage
                             String cle =  model.addStage(new Stage(nom,debut,fin));
                             vue.afficheStageAjoute(cle);
-                            save.stagesSave();
                         }catch ( DateDeFinNonValideException e) {
                             System.out.println("Stage non ajouté : les date et heure de fin sont postérieures au début");
                         }catch (ChaineDeCaractereVideException e) {
@@ -102,7 +97,7 @@ public class Ctrl {
         int choixStage;
 
         vue.afficheStageSet();
-        if (vue.nbStage() > 0){
+        if (Model.getNbStage() > 0){
             consigne = " A quel stage souhaitez-vous ajouter une activité? (sortir : 0 + enter)";
             pattern = PatternPerso.pasVideEtChiffresUniquement;
 
@@ -173,7 +168,7 @@ public class Ctrl {
         int choixStage;
 
         vue.afficheStageSet();
-        if (vue.nbStage() > 0) {
+        if (Model.getNbStage() > 0) {
             consigne = " De quel stage souhaitez-vous voir l'horaire? (sortir : 0 + enter)";
             pattern = PatternPerso.pasVideEtChiffresUniquement;
 
@@ -368,6 +363,10 @@ public class Ctrl {
 
                             if (! participant.containActivite(activite)) {
                                 vue.afficheActiviteStage(stage, activite);
+                                double prixNormal = participant.getTarifStatut().getPrixActiviteSansReduction(activite);
+                                double prixReduit = participant.getTarifStatut().getPrixActiviteAvecReduction(activite);
+                                System.out.println("Prix normal de cette activité : " + prixNormal);
+                                System.out.println("Prix pour vous (avec réduction) : " + prixReduit);
                                 TreeMap<Activite,Stage> inConflict = participant.getActivitiesInConflict(activite);
 
                                 if (inConflict.size() == 0) { // pas de conflits
@@ -433,6 +432,42 @@ public class Ctrl {
         return participant;
     }
 
+    // donner un prix à chaque activité d'un stage
+    public void setPrixActivites(){
+        int choixNum;
+        vue.afficheStageSet();
+
+        consigne = "A quel stage désirez-vous fixer le prix des activités ? (Sortir : 0)";
+        pattern = PatternPerso.pasVideEtChiffresUniquement;
+
+        do {
+            input = inputToString();
+            choixNum = Integer.parseUnsignedInt(input);
+        }while(!(choixNum >= 0 && choixNum <= Model.getNbStage()));
+
+        stop = "0".equalsIgnoreCase(input);
+
+        if (!stop){
+            Stage stage = vue.stageChoisi(choixNum);
+
+            consigne = "Indiquez le prix (en euros) de cette activité ?(format : x.xx)";
+            pattern = PatternPerso.pasVideEtPrixOuZero;
+
+            Iterator<Activite> iterator = stage.getActiviteSetOrderedByDateHeureDebut().iterator();
+            input ="";
+
+            while (iterator.hasNext() && !"0".equalsIgnoreCase(input)) {
+                Activite activite = iterator.next();
+                vue.afficheActiviteStage(stage, activite);
+
+                input = inputToString();
+
+                if (!"0".equalsIgnoreCase(input)){
+                    activite.setPrix(Double.parseDouble(input));
+                }
+            }
+        }
+    }
 
 
     /*

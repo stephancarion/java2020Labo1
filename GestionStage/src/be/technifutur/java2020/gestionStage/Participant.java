@@ -2,11 +2,12 @@ package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideException;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.TreeMap;
 
-public class Participant {
+public class Participant implements Serializable {
     private String nom;
     private String prenom;
     private Optional<String> nomClub;
@@ -86,7 +87,7 @@ public class Participant {
         return planning;
     }
 
-    // Renvoie les activités qui pourraient être en conflit avec une activité passée en paramètre
+    // Renvoie les activités qui pourraient être en conflit avec une activité test passée en paramètre
     public TreeMap<Activite, Stage> getActivitiesInConflict (Activite aTest){
         TreeMap<Activite, Stage> activitesStages = new TreeMap<>();
 

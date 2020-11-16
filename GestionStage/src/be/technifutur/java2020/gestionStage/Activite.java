@@ -3,15 +3,18 @@ package be.technifutur.java2020.gestionStage;
 import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideException;
 import be.technifutur.java2020.gestionStage.exception.DureeNegativeOuEgaleAZeroException;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Activite implements Comparable{
+public class Activite implements Comparable, Serializable {
     private String nom;
     private LocalDateTime debut;
     private int duree; // en minutes
     private HashSet<Participant> inscriptions;
+    private double prix = 0;
+
 
     public Activite(String nom, LocalDateTime debut, int duree) throws ChaineDeCaractereVideException, DureeNegativeOuEgaleAZeroException {
         if (nom.length() >0){
@@ -77,4 +80,15 @@ public class Activite implements Comparable{
                 ", duree=" + duree +
                 '}';
     }
+
+    public double getPrix() {
+        return this.prix;
+    }
+
+    public void setPrix(double prix){
+        this.prix=prix;
+    }
+
+
+
 }

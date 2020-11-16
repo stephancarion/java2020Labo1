@@ -22,4 +22,6 @@ public class PatternPerso {
                                                                             "(([01][0-9])|(2[0-3])):"+ // hh: --> entre 00 et 23
                                                                             "([0-5][0-9]))|0"); // mm --> entre 00 et 59);
     public static final Pattern pasVideEtOOuNOuZero = Pattern.compile("[oOnN0]{1}+");
+
+    public static final Pattern pasVideEtPrixOuZero = Pattern.compile("([1-9]{0,}?[0-9]\\.[0-9][0-9])|0");
 }

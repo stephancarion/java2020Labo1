@@ -31,6 +31,7 @@ public class Factory {
             app.setTitre("Menu Général");
             app.setModelEnCours(getMenuGeneralModel());
             app.setRead(getRead());
+            app.setSave(getSave());
             getMenuVue().setModel(getMenuGeneralModel());
             getMenuCtrl().setModel(getMenuGeneralModel());
         }
@@ -50,7 +51,6 @@ public class Factory {
             ctrl.setScanner(getScanner());
             ctrl.setModel(getModel());
             ctrl.setVue(getVue());
-            ctrl.setSave(getSave());
         }
         return ctrl;
     }
@@ -178,7 +178,9 @@ public class Factory {
 
     public MenuModel getMenuTresorierModel() {
         if (menuTresorierModel == null){
-            Item[] itemTab ={};
+            Item[] itemTab ={
+                    new Item("Donner des prix à des activités", getCtrl(), "setPrixActivites")
+            };
             menuTresorierModel = new MenuModel("Trésorier", itemTab);
             menuTresorierModel.setMenuModelPrecedent(Optional.of(getMenuGeneralModel()));
         }

@@ -11,6 +11,7 @@ public class Application implements Runnable{
     private MenuCtrl ctrl;
     private String titre;
     private Read read;
+    private Save save;
 
     public void setModelPrecedent(Optional<MenuModel> modelPrecedent) {
         this.modelPrecedent = modelPrecedent;
@@ -36,9 +37,14 @@ public class Application implements Runnable{
         this.read = read;
     }
 
+    public void setSave(Save save) {
+        this.save = save;
+    }
+
     @Override
     public void run() {
         read.stagesRead();
+        //read.participantsRead();
 
         boolean sortie=false;
         int choix = 0;
@@ -82,13 +88,15 @@ public class Application implements Runnable{
         }while(! sortie);
     }
 
-    public static void stop(){
+    public void stop(){
         String affiche = "\n"+
                         "***************\n" +
                         "* Au revoir ! *\n" +
                         "***************\n" ;
 
         System.out.println(affiche);
+        save.saveStages();
+        //save.saveParticipants();
     }
 
 }
