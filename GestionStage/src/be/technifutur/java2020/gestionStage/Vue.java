@@ -1,7 +1,8 @@
 package be.technifutur.java2020.gestionStage;
 
+import be.technifutur.java2020.gestionStage.stage.StageModel;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -20,20 +21,20 @@ public class Vue {
         return choix >= 1 && choix <= Model.getNbStage();
     }
 
-    public Stage stageChoisi(int choix){
+    public StageModel stageChoisi(int choix){
         return model.getStage(clesStages.get(choix));
     }
 
     public void afficheStageAjoute(String cle){
         String affiche;
         try{
-            Stage stage = model.getStage(cle);
+            StageModel stageModel = model.getStage(cle);
 
-            String nomStage = stage.getName();
-            String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("HH'h'mm"));
-            String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("HH'h'mm"));
+            String nomStage = stageModel.getNom();
+            String dateDebut = stageModel.getDebut().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String heureDebut = stageModel.getDebut().toLocalTime().format(DateTimeFormatter.ofPattern("HH'h'mm"));
+            String dateFin = stageModel.getFin().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String heureFin = stageModel.getFin().toLocalTime().format(DateTimeFormatter.ofPattern("HH'h'mm"));
 
             affiche = "\n"+
                     "************ Stage ajouté ************\n"+
@@ -69,13 +70,13 @@ public class Vue {
             affiche += " N°\t\tNom, date et heure de début\n";
 
             // Lignes des stages disponibles
-            for (Stage stage : model.getStageSet()) {
+            for (StageModel stageModel : model.getStageSet()) {
                 cpt++;
-                String nom = stage.getName();
-                String dateDebut = stage.getDateDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String heureDebut = stage.getHeureDebut().format(DateTimeFormatter.ofPattern("HH'h'mm"));
-                String dateFin = stage.getDateFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String heureFin = stage.getHeureFin().format(DateTimeFormatter.ofPattern("HH'h'mm"));
+                String nom = stageModel.getNom();
+                String dateDebut = stageModel.getDebut().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String heureDebut = stageModel.getDebut().toLocalTime().format(DateTimeFormatter.ofPattern("HH'h'mm"));
+                String dateFin = stageModel.getFin().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String heureFin = stageModel.getFin().toLocalTime().format(DateTimeFormatter.ofPattern("HH'h'mm"));
                 clesStages.put(cpt,nom);
 
                 affiche += " " + cpt + ".\t\t" +
@@ -95,14 +96,14 @@ public class Vue {
         System.out.println(affiche);
     }
 
-    public void afficheHoraireStage(Stage stage){
+    public void afficheHoraireStage(StageModel stageModel){
         String affiche = "";
-        TreeSet<Activite> activiteSet = stage.getActiviteSetOrderedByDateHeureDebut();
+        TreeSet<Activite> activiteSet = stageModel.getActiviteSetOrderedByDateHeureDebut();
         Iterator<Activite> iterator = activiteSet.iterator();
 
-        String nomStage = stage.getName();
-        String debutStage = stage.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        String finStage = stage.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String nomStage = stageModel.getNom();
+        String debutStage = stageModel.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String finStage = stageModel.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         // En-tête d'affichage
         affiche += "Stage : " + nomStage + " (du " + debutStage + " au " + finStage +")\n";
@@ -116,7 +117,7 @@ public class Vue {
             /* Initilisation virtuelle de la date d'une première activité un jour avant le début du stage
             pour que la première activité du stage aie une date différente dans la boucle while
              */
-            LocalDate dateDebutActivite = stage.getDateDebut().minusDays(1);
+            LocalDate dateDebutActivite = stageModel.getDebut().toLocalDate().minusDays(1);
 
             while (iterator.hasNext()){
                 Activite activite = iterator.next();
@@ -194,9 +195,9 @@ public class Vue {
         System.out.println(affiche);
     }
 
-    public void afficheActiviteStage(Stage s, Activite a){
+    public void afficheActiviteStage(StageModel s, Activite a){
         String affiche = "";
-        String nomS = s.getName();
+        String nomS = s.getNom();
         String nomA = a.getNom();
         String debutA = a.getDebut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         String finA = a.getFin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));

@@ -1,6 +1,7 @@
 package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.exception.*;
+import be.technifutur.java2020.gestionStage.stage.StageModel;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -75,7 +76,7 @@ public class Ctrl {
                     if(! stop){
                         try{
                             // création d'un stage et ajout du stage au model + récupération de la cle pour affichage
-                            String cle =  model.addStage(new Stage(nom,debut,fin));
+                            String cle =  model.addStage(new StageModel(nom,debut,fin));
                             vue.afficheStageAjoute(cle);
                         }catch ( DateDeFinNonValideException e) {
                             System.out.println("Stage non ajouté : les date et heure de fin sont postérieures au début");
@@ -112,14 +113,14 @@ public class Ctrl {
             stop = choixStage == 0;
 
             if (!stop) {
-                Stage stage = vue.stageChoisi(choixStage);
+                StageModel stageModel = vue.stageChoisi(choixStage);
 
                 // Récupération d'un nom d'activité d'au moins 1 caractère
                 consigne = "Entrez le nom de l'activité (sortir : 0 + enter) : ";
                 pattern = PatternPerso.pasVideEtLettresUniquementOuZero;
 
                 input = inputToString();
-                while (stage.containActivite(input)) {
+                while (stageModel.containActivite(input)) {
                     input = inputToString();
                 }
 
@@ -148,7 +149,7 @@ public class Ctrl {
                             duree = Integer.parseUnsignedInt(input);
 
                             try {
-                                stage.addActivite(new Activite(nom, debut, duree));
+                                stageModel.addActivite(new Activite(nom, debut, duree));
                             } catch (ChaineDeCaractereVideException e) {
                                 System.out.println("Le nom de l'activité est vide");
                             } catch (DureeNegativeOuEgaleAZeroException e) {
@@ -354,20 +355,20 @@ public class Ctrl {
                         stop = choixStage == 0;
                     }
                     if (vue.choixStagePossible(choixStage)){
-                        Stage stage = vue.stageChoisi(choixStage);
-                        TreeSet<Activite> activites = stage.getActiviteSetOrderedByDateHeureDebut();
+                        StageModel stageModel = vue.stageChoisi(choixStage);
+                        TreeSet<Activite> activites = stageModel.getActiviteSetOrderedByDateHeureDebut();
                         Iterator<Activite> iterator = activites.iterator();
 
                         while (iterator.hasNext() && !stop) {
                             Activite activite = iterator.next();
 
                             if (! participant.containActivite(activite)) {
-                                vue.afficheActiviteStage(stage, activite);
+                                vue.afficheActiviteStage(stageModel, activite);
                                 double prixNormal = participant.getTarifStatut().getPrixActiviteSansReduction(activite);
                                 double prixReduit = participant.getTarifStatut().getPrixActiviteAvecReduction(activite);
                                 System.out.println("Prix normal de cette activité : " + prixNormal);
                                 System.out.println("Prix pour vous (avec réduction) : " + prixReduit);
-                                TreeMap<Activite,Stage> inConflict = participant.getActivitiesInConflict(activite);
+                                TreeMap<Activite, StageModel> inConflict = participant.getActivitiesInConflict(activite);
 
                                 if (inConflict.size() == 0) { // pas de conflits
                                     consigne = "Souhaitez-vous ajouter l'activité ci-dessus à votre planning" +
@@ -386,7 +387,7 @@ public class Ctrl {
                                 stop = "0".equalsIgnoreCase(input);
 
                                 if ("O".equalsIgnoreCase(input)) {
-                                    participant.addActivite(activite,stage);
+                                    participant.addActivite(activite, stageModel);
                                     activite.addParticipant(participant);
                                 }
                             }
@@ -448,17 +449,17 @@ public class Ctrl {
         stop = "0".equalsIgnoreCase(input);
 
         if (!stop){
-            Stage stage = vue.stageChoisi(choixNum);
+            StageModel stageModel = vue.stageChoisi(choixNum);
 
             consigne = "Indiquez le prix (en euros) de cette activité ?(format : x.xx)";
             pattern = PatternPerso.pasVideEtPrixOuZero;
 
-            Iterator<Activite> iterator = stage.getActiviteSetOrderedByDateHeureDebut().iterator();
+            Iterator<Activite> iterator = stageModel.getActiviteSetOrderedByDateHeureDebut().iterator();
             input ="";
 
             while (iterator.hasNext() && !"0".equalsIgnoreCase(input)) {
                 Activite activite = iterator.next();
-                vue.afficheActiviteStage(stage, activite);
+                vue.afficheActiviteStage(stageModel, activite);
 
                 input = inputToString();
 

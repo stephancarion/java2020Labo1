@@ -1,6 +1,7 @@
 package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.exception.ParticipantDejaExistantException;
+import be.technifutur.java2020.gestionStage.stage.StageModel;
 
 import java.io.*;
 import java.util.Collection;
@@ -18,12 +19,12 @@ public class Read {
 
         try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(stageFile));){
 
-            HashSet<Stage> stages ;
+            HashSet<StageModel> stageModels;
             Object o = stream.readObject();
             if (o instanceof HashSet){
-                stages = (HashSet<Stage>) o;
-                for (Stage stage: stages) {
-                    model.addStage(stage);
+                stageModels = (HashSet<StageModel>) o;
+                for (StageModel stageModel : stageModels) {
+                    model.addStage(stageModel);
                 }
             }
         } catch (FileNotFoundException e){

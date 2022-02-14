@@ -1,6 +1,7 @@
 package be.technifutur.java2020.gestionStage;
 
 import be.technifutur.java2020.gestionStage.exception.ChaineDeCaractereVideException;
+import be.technifutur.java2020.gestionStage.stage.StageModel;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -12,7 +13,7 @@ public class Participant implements Serializable {
     private String prenom;
     private Optional<String> nomClub;
     private Optional<String> mail;
-    private TreeMap<Activite,Stage> planning;
+    private TreeMap<Activite, StageModel> planning;
     private TarifStatut tarifStatut;
 
     public Participant(String nom, String prenom, Optional<String> nomClub, Optional<String> mail) throws ChaineDeCaractereVideException {
@@ -25,7 +26,7 @@ public class Participant implements Serializable {
                     this.nomClub = Optional.of(nomClubString);
                 }
                 else{
-                    throw new ChaineDeCaractereVideException();
+                    throw new ChaineDeCaractereVideException("Le nom du club du participant doit contenir minimum 1 caractère");
                 }
             }else{
                 this.nomClub = Optional.empty();
@@ -36,13 +37,13 @@ public class Participant implements Serializable {
                     this.mail = Optional.of(mailString);
                 }
                 else{
-                    throw new ChaineDeCaractereVideException();
+                    throw new ChaineDeCaractereVideException("Le mail du participant doit contenir minimum 1 caractère");
                 }
             }else{
                 this.mail = Optional.empty();
             }
         }else{
-            throw new ChaineDeCaractereVideException();
+            throw new ChaineDeCaractereVideException("Le nom et prénom du participant doivent contenir minimum 1 caractère");
         }
         planning = new TreeMap<>();
     }
@@ -83,13 +84,13 @@ public class Participant implements Serializable {
         this.mail = mail;
     }
 
-    public TreeMap<Activite,Stage> getPlanning() {
+    public TreeMap<Activite, StageModel> getPlanning() {
         return planning;
     }
 
     // Renvoie les activités qui pourraient être en conflit avec une activité test passée en paramètre
-    public TreeMap<Activite, Stage> getActivitiesInConflict (Activite aTest){
-        TreeMap<Activite, Stage> activitesStages = new TreeMap<>();
+    public TreeMap<Activite, StageModel> getActivitiesInConflict (Activite aTest){
+        TreeMap<Activite, StageModel> activitesStages = new TreeMap<>();
 
         for (Activite aPlanning: planning.keySet()) {
             if (aTest.getFin().compareTo(aPlanning.getDebut()) > 0 || aTest.getDebut().compareTo(aPlanning.getFin()) < 0){
@@ -100,7 +101,7 @@ public class Participant implements Serializable {
         return activitesStages;
     }
 
-    public void addActivite (Activite a, Stage s){
+    public void addActivite (Activite a, StageModel s){
         planning.put(a,s);
     }
 

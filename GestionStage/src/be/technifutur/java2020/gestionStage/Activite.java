@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Activite implements Comparable, Serializable {
+public class Activite implements Comparable<Activite>, Serializable {
     private String nom;
     private LocalDateTime debut;
     private int duree; // en minutes
@@ -20,7 +20,7 @@ public class Activite implements Comparable, Serializable {
         if (nom.length() >0){
             this.nom = nom;
         }else{
-            throw new ChaineDeCaractereVideException();
+            throw new ChaineDeCaractereVideException("Le nom de l'activité n'a pas été fourni pour créer celle-ci.");
         }
 
         this.debut = debut;
@@ -66,10 +66,8 @@ public class Activite implements Comparable, Serializable {
         inscriptions.add(p);
     }
 
-    @Override
-    public int compareTo(Object o) {
-        Activite otherActivite = (Activite) o;
-        return this.debut.compareTo(otherActivite.getDebut());
+    public int compareTo(Activite a) {
+        return this.debut.compareTo(a.getDebut());
     }
 
     @Override

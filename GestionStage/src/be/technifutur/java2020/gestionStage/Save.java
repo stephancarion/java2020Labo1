@@ -1,12 +1,9 @@
 package be.technifutur.java2020.gestionStage;
 
-import be.technifutur.java2020.gestionStage.exception.ActiviteDejaExistanteDansCeStageException;
+import be.technifutur.java2020.gestionStage.stage.StageModel;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Optional;
 
 public class Save {
 
@@ -21,9 +18,9 @@ public class Save {
 
         try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(stageFile))){
 
-            HashSet<Stage> stages = model.getStageSet();
+            HashSet<StageModel> stageModels = model.getStageSet();
 
-            stream.writeObject(stages);
+            stream.writeObject(stageModels);
 
         } catch (IOException e) {
             e.printStackTrace();
